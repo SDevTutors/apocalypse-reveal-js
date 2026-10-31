@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>TAP Reveal demo</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+	<link rel="stylesheet" href="../arj/css/tna.css" />
+	<link rel="stylesheet" href="../arj/css/deck-controls.css" />
+</head>
+
+<!-- A small deck that uses TAP Reveal from this repository's arj folder.
+	Serve the repository folder (python -m http.server) and open /demo/. -->
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h1>TAP Reveal</h1>
+				<h3>The Apocalypse Plugin for reveal.js</h3>
+				<p>Version <span data-tap-version></span>. Click, the wheel or the arrow keys to move on.</p>
+			</section>
+			<section>
+				<section>
+					<h2>The padlock</h2>
+					<ul>
+						<li>Locked: the mouse changes slides, and text can't be selected</li>
+						<li>Unlocked: select and copy text; the mouse stays on this slide</li>
+						<li>Links work either way: <a href="https://revealjs.com/">reveal.js</a></li>
+					</ul>
+				</section>
+				<section>
+					<h2>A copy button</h2>
+					<pre><code>python -m http.server</code></pre>
+					<p>The grey bars under the heading go to the other slides in this stack.</p>
+				</section>
+			</section>
+			<section>
+				<h2>Drawing</h2>
+				<p>Press the pen at the top right, or D. Draw, then press the pen again, or Esc.</p>
+				<p>Drawings stay with their slide.</p>
+			</section>
+			<section>
+				<h2>The end</h2>
+				<p><a href="?print-pdf" target="_blank">Print version</a>, then Save as PDF</p>
+			</section>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+	<script src="../arj/js/deck-start.js"></script>
+	<script>
+		startDeck({
+			width: 1280,
+			height: 720,
+			hash: true,
+			history: true,
+			progress: true,
+			slideNumber: 'h.v',
+			transition: 'none',
+			mouseWheel: false, // deck.js handles the wheel
+			scrollActivationWidth: null, // tldreveal does not support the scroll view
+			plugins: [RevealNotes],
+			lock: true, // the padlock
+			draw: true, // the pen (tldreveal)
+			stackBarLinks: true,
+			deckControls: { sidebarSide: 'left' },
+			deckScripts: ['deck-controls.js', 'deck.js', 'deck-draw.js'],
+		});
+	</script>
+</body>
+
+</html>
