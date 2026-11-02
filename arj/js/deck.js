@@ -12,7 +12,7 @@
  *   back / forward  side buttons, previous / next slide
  * With a keyboard: Shift+click back, Alt+click next section.
  *
- * Footnote markers (a.ref, icons drawn in arj/css/tna.css):
+ * Footnote markers (a.ref, icons drawn in arj/css/arj.css):
  *   a reference or media marker jumps to its line on the References or
  *   Media used slide. Right click or the back button returns.
  *   Hover either to see the full entry.
@@ -267,7 +267,7 @@
 	 *   - data-m="2" on a media item, matched by <a class="ref media"><sup>2</sup></a>
 	 *   - data-cite="Noe, 2023" on a reference: the short citation, added
 	 *     after the marker in the print version
-	 *   - ol.links lists, numbered from their --start value (the FYP deck) */
+	 *   - ol.links lists, numbered from their --start value (a deck can set its own) */
 	const entries = {};
 	const tips = {};
 

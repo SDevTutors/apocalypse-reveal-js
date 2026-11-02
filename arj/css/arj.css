@@ -1,7 +1,7 @@
 /*********************************************************
- * FYP theme for reveal.js
- * Based on the TNA theme: light slide, navy panel, gold accent.
- * Slide size is 1280 x 720 px. Arial for text, Impact for memes.
+ * ARJ theme for reveal.js (Apocalypse Reveal-js)
+ * Light slides, navy text, gold accents. Slide size 1280 x 720 px.
+ * Arial for text, Impact for memes.
  *********************************************************/
 :root {
 	--navy: #10234a;
