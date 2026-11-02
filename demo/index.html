@@ -7,6 +7,7 @@
 	<title>ARJ demo</title>
 	<meta name="author" content="Mark Crowe" />
 	<meta name="description" content="A short deck that shows what ARJ, Apocalypse Reveal-js, adds to reveal.js." />
+	<link rel="icon" href="../favicon.ico" />
 	<link rel="author" href="https://sdevtutors.github.io/mark-crowe/" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
@@ -31,8 +32,8 @@
 					<figure class="deck-qr"><a href="https://github.com/SDevTutors/apocalypse-reveal-js"><img src="img/qr-repository.svg" alt="QR code: ARJ on GitHub" /></a></figure>
 				</div>
 				<footer class="slide-footer no-link-icon">
-					<p class="deck-version-line"><a class="version-link ext" href="https://github.com/SDevTutors/apocalypse-reveal-js/commits/master">Version <span data-arj-version></span></a></p>
-					<a class="deck-url ext" href="https://github.com/SDevTutors/apocalypse-reveal-js"><img src="../arj/img/favicons/github.svg" alt="GitHub" />github.com/SDevTutors/apocalypse-reveal-js</a>
+					<p class="deck-version-line"><a class="version-link ext" href="https://github.com/SDevTutors/apocalypse-reveal-js/commits/master">Version <span class="arj-version">1.8.6</span></a></p>
+					<p class="deck-url"><a class="ext" href="https://github.com/SDevTutors/apocalypse-reveal-js">github.com/SDevTutors/apocalypse-reveal-js</a></p>
 					<p class="footer-rights"><a class="ext" href="https://sdevtutors.github.io/mark-crowe/">© 2026 Mark Crowe</a><span class="sep">–</span>reveal.js and tldraw belong to their owners</p>
 				</footer>
 			</section>
@@ -44,14 +45,14 @@
 					<li>Every slide shows one thing ARJ adds to <a href="https://revealjs.com/">reveal.js</a></li>
 					<li>Getting around: → for the next topic, ↓ for the slides in it. The contents button, bottom left, opens the contents; type a number and press Enter to jump to it</li>
 					<li>Top right: the padlock, the pen, blackout, all slides, full screen and exit</li>
-					<li>Version <span data-arj-version></span> is year.tenth.day: the year (1 is 2026), which tenth of the year (0 to 9), and the days with changes in that tenth</li>
+					<li>Version <span class="arj-version">1.8.6</span> is year.tenth.day: the year (1 is 2026), which tenth of the year (0 to 9), and the days with changes in that tenth</li>
 				</ul>
 			</section>
 
 			<section>
 				<h2>Links</h2>
 				<ul>
-					<li>A website's own icon before each link: <a href="https://revealjs.com/">reveal.js</a>, <a href="https://github.com/hakimel/reveal.js">reveal.js on GitHub</a>, <a href="https://en.wikipedia.org/wiki/Reveal.js">Wikipedia</a></li>
+					<li>A website's own icon before each link. ARJ brings two, <a href="https://revealjs.com/">reveal.js</a> and <a href="https://github.com/hakimel/reveal.js">GitHub</a>; a deck adds its own, like <a href="https://en.wikipedia.org/wiki/Reveal.js">Wikipedia</a> here (<code>linkIcons: { folder, sites }</code>)</li>
 					<li>Links to other websites open in a new tab (<code>linkIcons: { newTab: true }</code>), marked with an arrow out of a box, so the slides stay open</li>
 					<li>A site without its own icon gets a plain link icon: <a href="https://www.jsdelivr.com/">jsDelivr</a></li>
 					<li>Links to slides in the deck stay in this tab: <a href="#/code-box">the code box</a></li>
@@ -112,7 +113,7 @@
 				<h2>About the author</h2>
 				<p class="author-name"><a class="ext" href="https://sdevtutors.github.io/mark-crowe/"><img class="inline-logo" src="img/mc-logo.png" alt="" />Mark Crowe</a></p>
 				<ul>
-					<li>Education Officer at <a class="ext" href="https://sdevtutors.github.io/"><img class="inline-logo" src="../arj/img/favicons/sdevtutors.png" alt="" />SDev Tutors</a>
+					<li>Education Officer at <a class="ext" href="https://github.com/SDevTutors" title="SDev Tutors on GitHub"><img class="inline-logo" src="img/sdevtutors-logo.png" alt="" />SDev Tutors</a>
 						<ul>
 							<li>A background in IT</li>
 							<li>Teaches programming: Python, C#, Java, JavaScript and AI</li>
@@ -142,7 +143,11 @@
 			scrollActivationWidth: null, // keep the slides on a phone (tldreveal needs this)
 			plugins: [RevealNotes],
 
-			linkIcons: { newTab: true }, // arj/js/link-icons.js: site icons; other websites open in a new tab
+			linkIcons: { // arj/js/link-icons.js: site icons; other websites open in a new tab
+				newTab: true,
+				folder: 'img/favicons/', // this deck's own icons
+				sites: { 'wikipedia.org': ['wikipedia.png', 'Wikipedia'] },
+			},
 			stackBarLinks: true, // arj/js/deck.js: click a grey bar to go to that slide
 			lock: true, // arj/js/deck.js: the padlock
 			draw: true, // arj/js/deck-start.js and deck-draw.js: the pen

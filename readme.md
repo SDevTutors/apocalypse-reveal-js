@@ -19,19 +19,19 @@
 
 Everything a deck needs is in the `arj` folder: JavaScript, CSS and pictures, no documentation.
 
-| File                               | What it does                                                                                                                                     |
-|------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| `arj/js/deck-start.js`             | Starts the deck: `startDeck({...})` runs reveal.js, loads tldreveal for drawing, then loads the other scripts in order                           |
-| `arj/js/deck-markdown.js`          | For Markdown decks: classes for field lines ("**Who:** ..."), scene lines, and shrinking long slides to fit, on screen and in the print version  |
-| `arj/js/link-icons.js`             | A website's own icon beside each link, and an arrow out of a box after links that open a new tab                                                 |
-| `arj/js/deck-controls.js`          | The buttons (slide list, home, contents, blackout, all slides, full screen, exit), the slide list sidebar, the contents slides and the numbering |
-| `arj/js/deck.js`                   | The mouse (wheel, click, right click, middle click), the padlock, footnote jumps, copy buttons on code, email links, the position bar in a stack |
-| `arj/js/deck-draw.js`              | The pen button: drawing on the slides with tldreveal                                                                                             |
-| `arj/css/arj.css`                  | The theme: light slides, navy and gold, 1280 × 720. Code boxes, link icons, and the title slide (`class="title-slide arj-title"`)                |
-| `arj/css/deck-controls.css`        | The buttons, sidebar, contents, padlock, pen and exit, and the PDF icon on print and PDF links                                                   |
-| `arj/img/arj-logo.svg`             | The ARJ logo (`tap-logo.png` is the old one)                                                                                                     |
-| `arj/img/favicons/`                | Websites' own icons for `link-icons.js`: reveal.js, GitHub, IMDb, Wikipedia, YouTube, TinyURL, SDev Tutors and more, with their sources          |
-| `arj/img/meme/expanding-brain.jpg` | The expanding brain meme, for the theme's `.brain` layout                                                                                        |
+| File                                                                   | What it does                                                                                                                                     |
+|------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`arj/js/deck-start.js`](arj/js/deck-start.js)                         | Starts the deck: `startDeck({...})` runs reveal.js, loads tldreveal for drawing, then loads the other scripts in order                           |
+| [`arj/js/deck-markdown.js`](arj/js/deck-markdown.js)                   | For Markdown decks: classes for field lines ("**Who:** ..."), scene lines, and shrinking long slides to fit, on screen and in the print version  |
+| [`arj/js/link-icons.js`](arj/js/link-icons.js)                         | A website's own icon beside each link, and an arrow out of a box after links that open a new tab                                                 |
+| [`arj/js/deck-controls.js`](arj/js/deck-controls.js)                   | The buttons (slide list, home, contents, blackout, all slides, full screen, exit), the slide list sidebar, the contents slides and the numbering |
+| [`arj/js/deck.js`](arj/js/deck.js)                                     | The mouse (wheel, click, right click, middle click), the padlock, footnote jumps, copy buttons on code, email links, the position bar in a stack |
+| [`arj/js/deck-draw.js`](arj/js/deck-draw.js)                           | The pen button: drawing on the slides with tldreveal                                                                                             |
+| [`arj/css/arj.css`](arj/css/arj.css)                                   | The theme: light slides, navy and gold, 1280 × 720. Code boxes, link icons, and the title slide (`class="title-slide arj-title"`)                |
+| [`arj/css/deck-controls.css`](arj/css/deck-controls.css)               | The buttons, sidebar, contents, padlock, pen and exit, and the PDF icon on print and PDF links                                                   |
+| [`arj/img/arj-logo.svg`](arj/img/arj-logo.svg)                         | The ARJ logo (`tap-logo.png` is the old one)                                                                                                     |
+| [`arj/img/favicons/`](arj/img/favicons/)                               | ARJ's own two website icons for `link-icons.js`, reveal.js and GitHub. A deck keeps any others itself                                            |
+| [`arj/img/meme/expanding-brain.jpg`](arj/img/meme/expanding-brain.jpg) | The expanding brain meme, for the theme's `.brain` layout                                                                                        |
 
 ---
 
@@ -154,13 +154,26 @@ The last button at the top right leaves the slides (`deckControls: { exit: true 
 
 ## Links
 
-`link-icons.js` puts a website's own icon before each link, from `arj/img/favicons/` (or `linkIcons: { folder: '...' }`). A site it has no icon for gets a plain link icon. With `linkIcons: { newTab: true }` links to other websites open in a new tab, so the slides stay open; any link that opens a new tab gets an arrow out of a box after it. A link marked `class="ext"` by hand gets the same arrow.
+[`link-icons.js`](arj/js/link-icons.js) puts a website's own icon before each link. ARJ has two, reveal.js and GitHub, as every deck links to those. Any other site's icon belongs to the deck: keep it in the deck's own folder and name the site:
+
+```js
+linkIcons: {
+  folder: 'img/favicons/',  // the deck's own icons
+  sites: { 'wikipedia.org': ['wikipedia.png', 'Wikipedia'] },
+},
+```
+
+A site with no icon gets a plain link icon. With `linkIcons: { newTab: true }` links to other websites open in a new tab, so the slides stay open; any link that opens a new tab gets an arrow out of a box after it. A link marked `class="ext"` by hand gets the same arrow.
 
 ---
 
 ## Title slide
 
-`<section class="title-slide arj-title">` lays out a title slide like the demo's: the title with a gold bar, the subtitle with a QR code level with the top of its letters, the author and date, "Built with", and a footer with the address, the version and the copyright. See [`demo/index.html`](demo/index.html) for the HTML. The QR code is just the code, with no white margin: `qr_logo.py URL LOGO.png OUT.svg --border 0` in the meme bank's tools makes one.
+`<section class="title-slide arj-title">` lays out a title slide like the demo's: the title centred with a gold bar, the subtitle with a big QR code level with the top of its letters, the author and date, "Built with", and a small footer: the version on the footer's line at the right; under the line the deck's own address on the left and a short address to type in on the right (`<p class="deck-short"><a href="..." data-tip="..." data-tip-size="72">`: hover shows it big, and the big one is clickable too); the copyright under them. See [`demo/index.html`](demo/index.html) for the HTML. The QR code is just the code, with no white margin:
+
+```py
+qr_logo.py URL LOGO.png OUT.svg --border 0 # in the meme bank's tools makes one.
+```
 
 ---
 
@@ -178,7 +191,7 @@ Better still, print it once and put the PDF beside the deck, so people can downl
 <a href="arj-demo.pdf" download>Download the PDF</a>
 ```
 
-`deck-controls.css` puts a red PDF icon before any `href="?print-pdf"` link and any link to a `.pdf` file. In the print version, `deck-markdown.js` shrinks each long slide to fit its page (not a title slide, `.arj-title`, or one marked `no-fit`), and the padlock and pen aren't shown.
+[`deck-controls.css`](arj/css/deck-controls.css) puts a red PDF icon before any `href="?print-pdf"` link and any link to a `.pdf` file. In the print version, [`deck-markdown.js`](arj/js/deck-markdown.js) shrinks each long slide to fit its page (not a title slide, `.arj-title`, or one marked `no-fit`), and the padlock and pen aren't shown.
 
 ---
 
