@@ -26,7 +26,6 @@
 	--icon-chevrons-up: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='17 11 12 6 7 11'/%3E%3Cpolyline points='17 18 12 13 7 18'/%3E%3C/svg%3E");
 	--icon-close: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E");
 	--icon-exit: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'/%3E%3Cpolyline points='16 17 21 12 16 7'/%3E%3Cline x1='21' y1='12' x2='9' y2='12'/%3E%3C/svg%3E");
-	--icon-external: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E");
 }
 
 /* ---------- Buttons ---------- */
@@ -163,10 +162,12 @@ body.arj-draw-toolbar-top .tldreveal .tlui-layout__top {
 	background: var(--icon-pdf) center / contain no-repeat;
 }
 
-/* ---------- Links that open a new tab ----------
- * arj/js/link-icons.js marks them (a.opens-tab): an arrow out of a box after
- * the link, in the link's colour */
-.reveal a.opens-tab::after {
+/* ---------- Links that open a new tab, or leave the deck ----------
+ * arj/js/link-icons.js marks links that open a new tab (a.opens-tab); a deck
+ * can mark any link by hand (a.ext). An arrow out of a box after the link,
+ * in the link's colour */
+.reveal a.opens-tab::after,
+.reveal a.ext::after {
 	content: "";
 	display: inline-block;
 	width: 0.7em;

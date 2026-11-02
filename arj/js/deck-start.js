@@ -59,7 +59,7 @@
 	window.ARJ = {
 		name: 'ARJ',
 		longName: 'Apocalypse Reveal-js',
-		version: '1.8.5', date: '2026-10-31',
+		version: '1.8.6', date: '2026-11-02',
 		repository: 'https://github.com/SDevTutors/apocalypse-reveal-js',
 		// tldreveal's own bundle, React and tldraw included; pinned to a version
 		tldreveal: {
@@ -147,7 +147,8 @@
 
 	window.startDeck = function (config) {
 		explainFileProtocol();
-		document.addEventListener('deck:ready', showVersion);
+		showVersion();
+		document.addEventListener('deck:ready', showVersion); // and in slides added since
 		window.deckStartHash = window.location.hash;
 		const scripts = config.deckScripts || [];
 		return addDrawing(config)
