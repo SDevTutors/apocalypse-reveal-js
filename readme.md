@@ -11,7 +11,7 @@
 
 ![alt text](docs/images/all-will-be-revealed-my-child.gif)
 
-> "All will be revealed" - [Apocalypse](https://www.imdb.com/title/tt3385516/characters/nm1209966/ "Apocalypse"), [X-Men: Apocalypse (2016)](https://www.imdb.com/title/tt3385516/ "X-Men: Apocalypse (2016)")
+> "All will be revealed" - [En Sabah Nur](https://www.imdb.com/title/tt3385516/characters/nm1209966/ "Apocalypse"), [X-Men: Apocalypse (2016)](https://www.imdb.com/title/tt3385516/ "X-Men: Apocalypse (2016)")
 
 ---
 
