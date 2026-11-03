@@ -30,7 +30,7 @@ Everything a deck needs is in the `arj` folder: JavaScript, CSS and pictures, no
 | [`arj/css/arj.css`](arj/css/arj.css)                                   | The theme: light slides, navy and gold, 1280 × 720. Code boxes, link icons, and the title slide (`class="title-slide arj-title"`)                |
 | [`arj/css/deck-controls.css`](arj/css/deck-controls.css)               | The buttons, sidebar, contents, padlock, pen and exit, and the PDF icon on print and PDF links                                                   |
 | [`arj/img/arj-logo.svg`](arj/img/arj-logo.svg)                         | The ARJ logo (`tap-logo.png` is the old one)                                                                                                     |
-| [`arj/img/favicons/`](arj/img/favicons/)                               | ARJ's own two website icons for `link-icons.js`, reveal.js and GitHub. A deck keeps any others itself                                            |
+| [`arj/img/favicons/`](arj/img/favicons/)                               | ARJ's own two website icons, reveal.js and GitHub, drawn by `arj.css` ("Icons"). A deck keeps any others itself, with its own CSS              |
 | [`arj/img/meme/expanding-brain.jpg`](arj/img/meme/expanding-brain.jpg) | The expanding brain meme, for the theme's `.brain` layout                                                                                        |
 
 ---
@@ -154,14 +154,13 @@ The last button at the top right leaves the slides (`deckControls: { exit: true 
 
 ## Links
 
-[`link-icons.js`](arj/js/link-icons.js) puts a website's own icon before each link. ARJ has two, reveal.js and GitHub, as every deck links to those. Any other site's icon belongs to the deck: keep it in the deck's own folder and name the site:
+[`link-icons.js`](arj/js/link-icons.js) puts a website's own icon before each link: the icon, the link, then the new-tab arrow. Which icon is CSS, so no page names an icon's address and nothing changes when ARJ moves (GitHub Pages, jsDelivr, a local copy). ARJ has reveal.js, GitHub and a folder (`<a class="folder">`), in [`arj/css/arj.css`](arj/css/arj.css) under "Icons". Any other site's icon belongs to the deck: keep it in the deck's own folder and add a line to the deck's CSS, the address relative to that CSS file:
 
-```js
-linkIcons: {
-  folder: 'img/favicons/',  // the deck's own icons
-  sites: { 'wikipedia.org': ['wikipedia.png', 'Wikipedia'] },
-},
+```css
+.reveal a[href*="wikipedia.org"]::before { background-image: url("../img/favicons/wikipedia.png"); }
 ```
+
+Put the address in `background-image` itself, not in a CSS variable: browsers read a relative address in a variable from the file that uses the variable (arj.css), not the one that sets it. The same goes for icons in a line of text, such as the title slide's "Built with": `<span class="arj-icon arj-icon-revealjs"></span>` (also `arj-icon-github`, `arj-icon-arj`, `arj-icon-folder`), never an `<img>` with ARJ's address.
 
 A site with no icon gets a plain link icon. With `linkIcons: { newTab: true }` links to other websites open in a new tab, so the slides stay open; any link that opens a new tab gets an arrow out of a box after it. A link marked `class="ext"` by hand gets the same arrow.
 

@@ -7,12 +7,13 @@
 	<title>ARJ demo</title>
 	<meta name="author" content="Mark Crowe" />
 	<meta name="description" content="A short deck that shows what ARJ, Apocalypse Reveal-js, adds to reveal.js." />
-	<link rel="icon" href="../favicon.ico" />
+	<link rel="icon" href="favicon.ico" />
 	<link rel="author" href="https://sdevtutors.github.io/mark-crowe/" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
 	<link rel="stylesheet" href="../arj/css/arj.css" />
 	<link rel="stylesheet" href="../arj/css/deck-controls.css" />
+	<link rel="stylesheet" href="src/css/demo.css" />
 </head>
 
 <!-- A small deck that uses ARJ from this repository's arj folder.
@@ -26,15 +27,15 @@
 				<div class="title-body no-link-icon">
 					<div class="title-text">
 						<h3>Apocalypse Reveal-js: more for reveal.js</h3>
-						<p class="byline"><a class="person ext" href="https://sdevtutors.github.io/mark-crowe/"><img class="logo" src="img/mc-logo.png" alt="" />Mark Crowe</a><span class="sep">–</span><time datetime="2026-11-02">November 2026</time> <span class="calendar" aria-hidden="true">📅</span></p>
-						<p class="built-with">Built with <a class="ext" href="https://revealjs.com/"><img src="../arj/img/favicons/revealjs.svg" alt="" />Reveal.js</a> and <a class="ext" href="https://github.com/SDevTutors/apocalypse-reveal-js" title="ARJ, Apocalypse Reveal-js"><img src="../arj/img/arj-logo.svg" alt="" />ARJ</a><span class="sep">–</span><a class="ext" href="https://github.com/SDevTutors/apocalypse-reveal-js" title="ARJ's source, on GitHub"><img src="../arj/img/favicons/github.svg" alt="GitHub" />Source</a></p>
+						<p class="byline"><a class="person ext" href="https://sdevtutors.github.io/mark-crowe/"><img class="logo" src="src/img/logo/mc-logo.png" alt="" />Mark Crowe</a><span class="sep">-</span><time datetime="2026-11-02">November 2026</time> <span class="calendar" aria-hidden="true">📅</span></p>
+						<p class="built-with">Built with <a class="ext" href="https://revealjs.com/"><span class="arj-icon arj-icon-revealjs"></span>Reveal.js</a> and <a class="ext" href="https://github.com/SDevTutors/apocalypse-reveal-js" title="ARJ, Apocalypse Reveal-js"><span class="arj-icon arj-icon-arj"></span>ARJ</a><span class="sep">-</span><a class="ext" href="https://github.com/SDevTutors/apocalypse-reveal-js" title="ARJ's source, on GitHub"><span class="arj-icon arj-icon-github"></span>Source</a></p>
 					</div>
-					<figure class="deck-qr"><a href="https://github.com/SDevTutors/apocalypse-reveal-js"><img src="img/qr-repository.svg" alt="QR code: ARJ on GitHub" /></a></figure>
+					<figure class="deck-qr"><a href="https://github.com/SDevTutors/apocalypse-reveal-js"><img src="src/img/qr/qr-repository.svg" alt="QR code: ARJ on GitHub" /></a></figure>
 				</div>
 				<footer class="slide-footer no-link-icon">
 					<p class="deck-version-line"><a class="version-link ext" href="https://github.com/SDevTutors/apocalypse-reveal-js/commits/master">Version <span class="arj-version">1.8.7</span></a></p>
 					<p class="deck-url"><a class="ext" href="https://github.com/SDevTutors/apocalypse-reveal-js">github.com/SDevTutors/apocalypse-reveal-js</a></p>
-					<p class="footer-rights"><a class="ext" href="https://sdevtutors.github.io/mark-crowe/">© 2026 Mark Crowe</a><span class="sep">–</span>reveal.js and tldraw belong to their owners</p>
+					<p class="footer-rights"><a class="ext" href="https://sdevtutors.github.io/mark-crowe/">© 2026 Mark Crowe</a><span class="sep">-</span>reveal.js and tldraw belong to their owners</p>
 				</footer>
 			</section>
 
@@ -52,7 +53,7 @@
 			<section>
 				<h2>Links</h2>
 				<ul>
-					<li>A website's own icon before each link. ARJ brings two, <a href="https://revealjs.com/">reveal.js</a> and <a href="https://github.com/hakimel/reveal.js">GitHub</a>; a deck adds its own, like <a href="https://en.wikipedia.org/wiki/Reveal.js">Wikipedia</a> here (<code>linkIcons: { folder, sites }</code>)</li>
+					<li>A website's own icon before each link. ARJ brings two, <a href="https://revealjs.com/">reveal.js</a> and <a href="https://github.com/hakimel/reveal.js">GitHub</a>; a deck adds its own in its CSS, like <a href="https://en.wikipedia.org/wiki/Reveal.js">Wikipedia</a> here (<code>a[href*="wikipedia.org"]::before</code>)</li>
 					<li>Links to other websites open in a new tab (<code>linkIcons: { newTab: true }</code>), marked with an arrow out of a box, so the slides stay open</li>
 					<li>A site without its own icon gets a plain link icon: <a href="https://www.jsdelivr.com/">jsDelivr</a></li>
 					<li>Links to slides in the deck stay in this tab: <a href="#/code-box">the code box</a></li>
@@ -103,7 +104,7 @@
 			<section>
 				<h2>The slides as a PDF</h2>
 				<ul>
-					<li><a href="arj-demo.pdf" download>Download the PDF</a>, already printed, one slide a page</li>
+					<li><a href="src/pdf/arj-demo.pdf" target="_blank" download>Download the PDF</a>, already printed, one slide a page</li>
 					<li>Or make your own: <a href="?print-pdf" target="_blank">print version</a>, then Save as PDF</li>
 				</ul>
 			</section>
@@ -111,9 +112,9 @@
 			<section>
 				<!-- no-number -->
 				<h2>About the author</h2>
-				<p class="author-name"><a class="ext" href="https://sdevtutors.github.io/mark-crowe/"><img class="inline-logo" src="img/mc-logo.png" alt="" />Mark Crowe</a></p>
+				<p class="author-name"><a class="ext" href="https://sdevtutors.github.io/mark-crowe/"><img class="inline-logo" src="src/img/logo/mc-logo.png" alt="" />Mark Crowe</a></p>
 				<ul>
-					<li>Education Officer at <a class="ext" href="https://github.com/SDevTutors" title="SDev Tutors on GitHub"><img class="inline-logo" src="img/sdevtutors-logo.png" alt="" />SDev Tutors</a>
+					<li>Education Officer at <a class="ext" href="https://github.com/SDevTutors" title="SDev Tutors on GitHub"><img class="inline-logo" src="src/img/logo/sdevtutors-logo.png" alt="" />SDev Tutors</a>
 						<ul>
 							<li>A background in IT</li>
 							<li>Teaches programming: Python, C#, Java, JavaScript and AI</li>
@@ -144,9 +145,7 @@
 			plugins: [RevealNotes],
 
 			linkIcons: { // arj/js/link-icons.js: site icons; other websites open in a new tab
-				newTab: true,
-				folder: 'img/favicons/', // this deck's own icons
-				sites: { 'wikipedia.org': ['wikipedia.png', 'Wikipedia'] },
+				newTab: true, // the icons themselves are CSS: the <style> at the top
 			},
 			stackBarLinks: true, // arj/js/deck.js: click a grey bar to go to that slide
 			lock: true, // arj/js/deck.js: the padlock

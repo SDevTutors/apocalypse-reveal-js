@@ -830,9 +830,57 @@ html.print-pdf .reveal a.ref[data-cite]::after {
 }
 
 /*********************************************************
- * Links to other websites: the site's own icon (favicon). arj/js/link-icons.js
- * sets --favicon on each link and data-links on each horizontal slide:
- *   favicon-before   icon, then the link
+ * Icons, in CSS so no page names an address for them: the addresses here
+ * are relative to this file, so they work wherever ARJ is loaded from
+ * (GitHub Pages, jsDelivr, a copy in node_modules).
+ *
+ * In a line of text, the size of the letters (the title slide's "Built
+ * with"): <span class="arj-icon arj-icon-revealjs"></span>
+ *   arj-icon-revealjs   reveal.js
+ *   arj-icon-github     GitHub
+ *   arj-icon-arj        ARJ's own logo
+ *   arj-icon-folder     a folder
+ *
+ * Beside links to other websites (a.site-link, from arj/js/link-icons.js),
+ * the site's own icon, before the link. ARJ has reveal.js and GitHub; a
+ * deck adds its own sites the same way, in its own CSS, its icons beside it:
+ *   .reveal a[href*="imdb.com"]::before { background-image: url("../img/favicons/imdb.png"); }
+ * a.folder (a link to a folder) gets a folder. Other sites get a plain link
+ * icon.
+ * The address goes straight into background-image, not into a variable:
+ * browsers read a relative address in a variable from the file that uses
+ * the variable (this one), not the file that sets it (the deck's).
+ *********************************************************/
+.reveal {
+	--icon-folder: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e8b64c' stroke='%23a37617' stroke-width='1.6' stroke-linejoin='round'%3E%3Cpath d='M2 6a2 2 0 0 1 2-2h5l2 2h9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z'/%3E%3C/svg%3E");
+	--icon-link-plain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b5a8c' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/%3E%3Cpath d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/%3E%3C/svg%3E");
+}
+
+.reveal .arj-icon {
+	display: inline-block;
+	width: 0.8em;
+	height: 0.8em;
+	margin-right: 0.3em;
+	vertical-align: -0.08em;
+	background: center / contain no-repeat;
+}
+
+.reveal .arj-icon-revealjs { background-image: url("../img/favicons/revealjs.svg"); }
+.reveal .arj-icon-github { background-image: url("../img/favicons/github.svg"); }
+.reveal .arj-icon-arj { background-image: url("../img/arj-logo.svg"); }
+.reveal .arj-icon-folder { background-image: var(--icon-folder); }
+
+/* Lowest first: any site (or one a deck names in linkIcons.sites, as
+ * --favicon), then ARJ's two, then a folder */
+.reveal :where(a.site-link)::before { background-image: var(--favicon, var(--icon-link-plain)); }
+.reveal a[href*="revealjs.com"]::before { background-image: url("../img/favicons/revealjs.svg"); }
+.reveal a[href*="github.com"]::before { background-image: url("../img/favicons/github.svg"); }
+.reveal a.site-link.folder::before { background-image: var(--icon-folder); }
+
+/*********************************************************
+ * Links to other websites: the site's icon (--favicon, above). arj/js/
+ * link-icons.js sets data-links on each horizontal slide:
+ *   favicon-before   icon, then the link, then the new-tab mark (the default)
  *   favicon-after    the link, then the icon
  *   link-icon        the link, then a plain link icon
  *   favicon-label    the icon in place of a label ("IMDb:"), and a plain
@@ -846,17 +894,25 @@ html.print-pdf .reveal a.ref[data-cite]::after {
 	vertical-align: -0.08em;
 }
 
+/* The picture itself is set above, by site */
 .reveal [data-links="favicon-before"] a.site-link::before,
 .reveal [data-links="favicon-label"] a.site-link:not(.labelled)::before {
 	content: "";
 	margin-right: 0.25em;
-	background: var(--favicon) center / contain no-repeat;
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
 }
 
+/* The icon takes the new-tab mark's place after the link, so none of the
+ * mark's mask: it would cut the icon to the shape of an arrow. Only the
+ * icons a deck names in linkIcons.sites (--favicon) */
 .reveal [data-links="favicon-after"] a.site-link::after {
 	content: "";
 	margin-left: 0.25em;
-	background: var(--favicon) center / contain no-repeat;
+	background: var(--favicon, var(--icon-link-plain)) center / contain no-repeat;
+	-webkit-mask: none;
+	mask: none;
 }
 
 .reveal [data-links="link-icon"] a.site-link::after,

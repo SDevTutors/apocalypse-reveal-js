@@ -150,15 +150,16 @@ body.arj-draw-toolbar-top .tldreveal .tlui-layout__top {
 
 /* ---------- Print version and PDF links ----------
  * <a href="?print-pdf">: reveal.js's own print layout; a link to a .pdf
- * file: the deck already printed. A PDF icon before either */
+ * file: the deck already printed. A PDF icon before either, the height of
+ * the letters */
 .reveal a[href="?print-pdf"]::before,
 .reveal a[href$=".pdf"]::before {
 	content: "";
 	display: inline-block;
-	width: 1.3em;
-	height: 1.3em;
-	margin-right: 0.3em;
-	vertical-align: -0.25em;
+	width: 0.9em;
+	height: 0.9em;
+	margin-right: 0.25em;
+	vertical-align: -0.1em;
 	background: var(--icon-pdf) center / contain no-repeat;
 }
 

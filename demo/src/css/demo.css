@@ -1,0 +1,9 @@
+/*********************************************************
+ * Demo style-sheet.
+ *********************************************************/
+
+/* This deck's own site icon (arj/css/arj.css, "Icons"); the address is relative to this page */
+.reveal a[href*="wikipedia.org"]::before
+{
+	background-image: url("../img/favicons/wikipedia.png");
+}

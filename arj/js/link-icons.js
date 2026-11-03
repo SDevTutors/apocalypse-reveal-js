@@ -2,22 +2,23 @@
  * Link icons: each website's own icon (favicon) beside links to it, so
  * "IMDb" or "Wikiquote" can be seen at a glance. Load after the slides
  * exist and after arj/js/deck-markdown.js (the 'label' style uses its
- * field classes), before arj/js/deck-controls.js. Styles in arj/css/arj.css,
- * keyed on data-links on each horizontal slide:
- *   favicon-before   icon, then the link
+ * field classes), before arj/js/deck-controls.js. This marks the links
+ * (a.site-link) and each horizontal slide (data-links); arj/css/arj.css
+ * draws them:
+ *   favicon-before   icon, then the link, then the new-tab mark (the default)
  *   favicon-after    the link, then the icon
  *   link-icon        the link, then a plain link icon
  *   favicon-label    the icon in place of a field label ("**IMDb:**")
- * ARJ has icons for reveal.js and GitHub only, in arj/img/favicons/. Any
- * other site's icon belongs to the deck that links to it: the deck keeps
- * the icon in its own folder and names the site in sites.
+ * Which icon is CSS: arj.css has reveal.js, GitHub, a folder (a.folder) and
+ * a plain link for any other site; a deck adds its own sites in its own CSS
+ * (see "Icons" in arj.css), so no page or setting names an icon's address.
  * Settings, all optional:
  *   linkIcons: {
- *     folder: 'src/img/favicons/',  // where the deck's own icons are (sites)
  *     style: 'favicon-before',      // one of the four, or 'compare': a
  *                                   // different style on each section in turn
- *     sites: { 'imdb.com': ['imdb.png', 'IMDb'], ... },  // the deck's sites,
- *                                   // icons in folder; added to ARJ's two
+ *     sites: { 'imdb.com': ['imdb.png', 'IMDb'], ... },  // older: icons named
+ *     folder: 'src/img/favicons/',  // here, in folder, rather than in CSS.
+ *                                   // Needed for favicon-after and favicon-label
  *     labels: { 'imdb': 'imdb.com', ... },  // field label -> site, for favicon-label
  *     skip: 'a.person, .no-link-icon',      // links that never get an icon
  *     newTab: false,                // true: links to other websites open in a
@@ -26,7 +27,7 @@
  * Links that open a new tab (target="_blank", or all of them with newTab)
  * get class opens-tab: an arrow out of a box after the link (arj.css).
  * ?links=favicon-after in the address shows one style everywhere.
- * Links to sites with no icon get a plain link icon. Links that are
+ * Links to sites with no icon get a plain link icon (arj.css). Links that are
  * pictures (a QR code), links matching skip, and links inside an element
  * with class no-link-icon (a title slide that draws its own), get nothing.
  *********************************************************/
@@ -35,16 +36,7 @@
 
 	const STYLES = ['favicon-before', 'favicon-after', 'link-icon', 'favicon-label'];
 
-	// ARJ's own: every deck made with it links to these two
-	const ARJ_SITES = {
-		'revealjs.com': ['revealjs.svg', 'reveal.js'],
-		'github.com': ['github.svg', 'GitHub'],
-	};
-
-	const PLAIN_LINK = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b5a8c' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/%3E%3Cpath d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/%3E%3C/svg%3E\")";
-
 	const config = Reveal.getConfig().linkIcons || {};
-	const arjFolder = (window.ARJ && window.ARJ.folder ? window.ARJ.folder : 'arj/') + 'img/favicons/';
 
 	// Each site: [the icon's full address, the site's name]
 	function inFolder(sites, folder) {
@@ -57,7 +49,7 @@
 
 	const settings = {
 		style: config.style || 'favicon-before',
-		sites: Object.assign(inFolder(ARJ_SITES, arjFolder), inFolder(config.sites || {}, config.folder || '')),
+		sites: inFolder(config.sites || {}, config.folder || ''),
 		labels: config.labels || {},
 		skip: config.skip || 'a.person, .no-link-icon',
 		newTab: config.newTab === true,
@@ -112,7 +104,7 @@
 			const site = siteOf(link.href);
 			link.classList.add('site-link');
 			// An absolute address: a relative one in a CSS variable is read from the CSS file
-			link.style.setProperty('--favicon', site ? 'url("' + site[0] + '")' : PLAIN_LINK);
+			if (site) link.style.setProperty('--favicon', 'url("' + site[0] + '")');
 		});
 		if (style === 'favicon-label') replaceLabels(top);
 	});
