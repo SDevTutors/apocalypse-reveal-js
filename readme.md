@@ -6,7 +6,7 @@
 **ARJ**, Apocalypse Reveal-js: reusable scripts and styles that sit on top of [reveal.js](https://revealjs.com/) 5. Made for the SDev Tutors decks by [Mark Crowe](https://sdevtutors.github.io/mark-crowe/).
 
 - Source: <https://github.com/SDevTutors/apocalypse-reveal-js>
-- Version: 1.8.5 (year.tenth.day: year 1 is 2026, the tenth of the year 0 to 9, then the number of days with changes in that tenth)
+- Version: 1.8.7 (year.tenth.day: year 1 is 2026, the tenth of the year 0 to 9, then the number of days with changes in that tenth)
 - Demo: [`demo/index.html`](demo/index.html), and the same slides already printed: [`demo/arj-demo.pdf`](demo/arj-demo.pdf)
 
 ![alt text](docs/images/all-will-be-revealed-my-child.gif)
@@ -22,10 +22,10 @@ Everything a deck needs is in the `arj` folder: JavaScript, CSS and pictures, no
 | File                                                                   | What it does                                                                                                                                     |
 |------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
 | [`arj/js/deck-start.js`](arj/js/deck-start.js)                         | Starts the deck: `startDeck({...})` runs reveal.js, loads tldreveal for drawing, then loads the other scripts in order                           |
-| [`arj/js/deck-markdown.js`](arj/js/deck-markdown.js)                   | For Markdown decks: classes for field lines ("**Who:** ..."), scene lines, and shrinking long slides to fit, on screen and in the print version  |
+| [`arj/js/deck-markdown.js`](arj/js/deck-markdown.js)                   | For Markdown decks: classes for field lines ("**Who:** ..."), scene lines, shrinking long slides to fit, on screen and in the print version, and continuing a long list on new slides (`class="split"`) |
 | [`arj/js/link-icons.js`](arj/js/link-icons.js)                         | A website's own icon beside each link, and an arrow out of a box after links that open a new tab                                                 |
 | [`arj/js/deck-controls.js`](arj/js/deck-controls.js)                   | The buttons (slide list, home, contents, blackout, all slides, full screen, exit), the slide list sidebar, the contents slides and the numbering |
-| [`arj/js/deck.js`](arj/js/deck.js)                                     | The mouse (wheel, click, right click, middle click), the padlock, footnote jumps, copy buttons on code, email links, the position bar in a stack |
+| [`arj/js/deck.js`](arj/js/deck.js)                                     | The mouse (wheel, click, right click, middle click), the padlock, footnote jumps, copy buttons on code, email links, the position bar in a stack, the slide at the top of a tall window (`pinTop: true`) |
 | [`arj/js/deck-draw.js`](arj/js/deck-draw.js)                           | The pen button: drawing on the slides with tldreveal                                                                                             |
 | [`arj/css/arj.css`](arj/css/arj.css)                                   | The theme: light slides, navy and gold, 1280 × 720. Code boxes, link icons, and the title slide (`class="title-slide arj-title"`)                |
 | [`arj/css/deck-controls.css`](arj/css/deck-controls.css)               | The buttons, sidebar, contents, padlock, pen and exit, and the PDF icon on print and PDF links                                                   |
@@ -84,7 +84,7 @@ The same, with the hosted addresses in place of `arj/...`. [jsDelivr](https://ww
 
 `deck-start.js` loads the scripts in `deckScripts` from the same address, so the deck doesn't name them. Every file is at `https://cdn.jsdelivr.net/gh/SDevTutors/apocalypse-reveal-js@master/` followed by its path in the table above (checked 31 October 2026).
 
-`@master` is the latest version: it changes when this repository does, and jsDelivr can take up to a week to catch up. There's no release tag yet. Once there is one (`v1.8.6`, say), `@v1.8.6` in place of `@master` is a fixed address that never changes.
+`@master` is the latest version: it changes when this repository does, and jsDelivr can take up to a week to catch up. Once a version is tagged (`v1.8.6`, say), `@v1.8.6` in place of `@master` is a fixed address that never changes. Tagging, GitHub releases, the npm package and a git-ignored copy in a deck: [`docs/publishing.md`](docs/publishing.md).
 
 ---
 

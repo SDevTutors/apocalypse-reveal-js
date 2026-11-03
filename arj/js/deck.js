@@ -43,6 +43,10 @@
  *
  * Drawing (deck-draw.js, tldreveal): while drawing, the mouse belongs to
  * the drawing, so none of the handlers here act on it.
+ *
+ * Top, with pinTop: true in Reveal.initialize: in a window taller than the
+ * slide, the slide sits at the top, with the spare space below it, instead
+ * of in the middle with the heading pushed down.
  *********************************************************/
 (function () {
 	const deck = document.querySelector('.reveal');
@@ -53,6 +57,23 @@
 	function scrollView() {
 		if (printing) return true;
 		return typeof Reveal.isScrollView === 'function' && Reveal.isScrollView();
+	}
+
+	/* ---------- Top ----------
+	 * reveal.js centres the slide in the window. With pinTop, --arj-lift (used
+	 * in arj/css/arj.css) moves it up by the spare space above it, so it keeps
+	 * reveal.js's top margin only. Not in the overview or a scrolling page. */
+	if (Reveal.getConfig().pinTop) {
+		const pinTop = function () {
+			const config = Reveal.getConfig();
+			const height = deck.offsetHeight;
+			const spare = (height - config.height * Reveal.getScale()) / 2 - height * config.margin / 2;
+			const lift = scrollView() || Reveal.isOverview() ? 0 : Math.max(0, spare);
+			deck.style.setProperty('--arj-lift', lift + 'px');
+		};
+		pinTop();
+		window.addEventListener('resize', pinTop); // after reveal.js's own, so the scale is new
+		['resize', 'overviewshown', 'overviewhidden'].forEach(function (name) { Reveal.on(name, pinTop); });
 	}
 
 	/* Things the mouse handlers leave alone: links, buttons, form fields,
@@ -349,6 +370,9 @@
 		link.addEventListener('click', function (event) {
 			if (!entry || entry.contains(link)) return; // no list entry: follow the link
 			event.preventDefault();
+			// reveal.js follows "#/media-used" links itself, to the first slide of
+			// a split list (deck-markdown.js), not the one with this entry
+			event.stopPropagation();
 			hideTip();
 			jumpTo(entry);
 		});

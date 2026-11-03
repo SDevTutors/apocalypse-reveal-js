@@ -11,9 +11,18 @@
  *     fit: true,               // shrink a slide's text until it fits:
  *     fitMin: 0.55,            //   no smaller than this,
  *     fitStep: 0.05,           //   in steps of this
+ *     split: true,             // continue a long slide with class split on new slides
  *   }
  * Fitting sets --fit (1 down to fitMin) on the slide; the CSS multiplies
  * font sizes by it, e.g. font-size: calc(30px * var(--fit, 1)).
+ *
+ * Splitting, for a long list (references, picture credits) that would only
+ * fit as small print: in Markdown <!-- .slide: class="split" -->. If the
+ * slide runs over, the end of its last list moves to a new slide below it,
+ * with the same heading and class continued, as many times as it takes, so
+ * every part is full size, the items shared out evenly. A numbered list
+ * carries on from its number. Not
+ * in the print version, which gives a long slide extra pages instead.
  *********************************************************/
 (function () {
 	'use strict';
@@ -26,9 +35,14 @@
 		fit: true,
 		fitMin: 0.55,
 		fitStep: 0.05,
+		split: true,
 	}, Reveal.getConfig().deckMarkdown || {});
 
 	const slides = document.querySelector('.reveal .slides');
+	const printing = /print-pdf/i.test(window.location.search);
+	// The height a slide's content may take: the slide, less a little for the
+	// bars along the bottom
+	const room = Reveal.getConfig().height - 30;
 
 	// "**Use it for:** ..." -> li.field.field-use-it-for
 	if (settings.fieldClasses) {
@@ -62,9 +76,59 @@
 		});
 	}
 
+	// Long lists: continue them on new slides below (section.split)
+	if (settings.split && !printing) {
+		// reveal.js hides the slides that aren't showing, and a hidden slide has
+		// no height, so show one (and its stack) while it's measured
+		const shown = function (slide, measure) {
+			const parts = [slide, slide.parentNode.closest('section')].filter(Boolean);
+			const saved = parts.map(function (part) { return [part.style.display, part.hidden]; });
+			parts.forEach(function (part) { part.style.display = 'block'; part.hidden = false; });
+			measure();
+			parts.forEach(function (part, i) { part.style.display = saved[i][0]; part.hidden = saved[i][1]; });
+		};
+		// A slide on its own becomes the first slide of a new stack
+		const stackOf = function (slide) {
+			if (slide.parentNode.matches('section')) return slide.parentNode;
+			const stack = document.createElement('section');
+			slide.parentNode.insertBefore(stack, slide);
+			stack.appendChild(slide);
+			return stack;
+		};
+		const split = function (slide) {
+			const list = Array.from(slide.children).filter(function (el) { return el.matches('ol, ul'); }).pop();
+			if (!list || list.children.length < 2) return;
+			shown(slide, function () {
+				if (slide.scrollHeight <= room) return;
+				const next = document.createElement('section');
+				next.className = slide.className.replace(/\b(past|present|future)\b/g, '').trim();
+				next.classList.add('continued');
+				// The same heading, and the same marks (<!-- no-number --> ...)
+				Array.from(slide.childNodes).forEach(function (node) {
+					if (node.nodeType === Node.COMMENT_NODE || (node.matches && node.matches('h1, h2, h3'))) {
+						next.appendChild(node.cloneNode(true));
+					}
+				});
+				const rest = next.appendChild(list.cloneNode(false));
+				stackOf(slide).insertBefore(next, slide.nextSibling);
+				const move = function () { rest.insertBefore(list.lastElementChild, rest.firstChild); };
+				while (slide.scrollHeight > room && list.children.length > 1) move();
+				// Share the items out evenly over the slides it will take, so the
+				// last isn't left with one or two
+				const fits = list.children.length;
+				const total = fits + rest.children.length;
+				const each = Math.ceil(total / Math.ceil(total / fits));
+				while (list.children.length > each) move();
+				if (list.tagName === 'OL') rest.start = list.start + list.children.length;
+				split(next);
+			});
+		};
+		slides.querySelectorAll('section.split').forEach(split);
+		Reveal.sync();
+	}
+
 	// Long slides: shrink the text until it fits the slide's height
 	if (settings.fit) {
-		const room = Reveal.getConfig().height - 30;
 		// A title slide (.arj-title) fills the height on purpose, so it's left
 		// alone; so is any slide with class no-fit
 		const fit = function (slide) {
@@ -93,7 +157,7 @@
 				page.style.height = (needed * pageHeight) + 'px';
 			});
 		};
-		if (/print-pdf/i.test(window.location.search)) {
+		if (printing) {
 			if (document.querySelector('.reveal .pdf-page')) fitPrint();
 			else Reveal.on('pdf-ready', fitPrint);
 		}

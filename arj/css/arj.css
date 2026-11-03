@@ -1109,6 +1109,12 @@ html.print-pdf .reveal .slides .pdf-page > section.arj-title {
 	box-shadow: none;
 }
 
+/* pinTop (arj/js/deck.js): in a tall window the slide moves up to the top.
+ * translate adds to the transform reveal.js sets, without replacing it */
+.reveal .slides {
+	translate: 0 calc(-1 * var(--arj-lift, 0px));
+}
+
 /* A footer at the bottom of the slide, under a line */
 .reveal .slide-footer {
 	position: absolute;

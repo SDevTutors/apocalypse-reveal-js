@@ -1,0 +1,25 @@
+{
+	"name": "apocalypse-reveal-js",
+	"version": "1.8.7",
+	"description": "ARJ, Apocalypse Reveal-js: scripts and styles that sit on top of reveal.js 5",
+	"keywords": [
+		"reveal.js",
+		"slides",
+		"presentation",
+		"markdown"
+	],
+	"homepage": "https://sdevtutors.github.io/apocalypse-reveal-js/",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/SDevTutors/apocalypse-reveal-js.git"
+	},
+	"bugs": "https://github.com/SDevTutors/apocalypse-reveal-js/issues",
+	"author": "Mark Crowe (https://sdevtutors.github.io/mark-crowe/)",
+	"files": [
+		"arj/"
+	],
+	"jsdelivr": "arj/js/deck-start.js",
+	"peerDependencies": {
+		"reveal.js": "^5.1.0"
+	}
+}
