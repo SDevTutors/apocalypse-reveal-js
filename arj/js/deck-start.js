@@ -61,7 +61,7 @@
 	window.ARJ = {
 		name: 'ARJ',
 		longName: 'Apocalypse Reveal-js',
-		version: '1.8.10', date: '2026-11-03',
+		version: '1.8.11', date: '2026-11-03',
 		repository: 'https://github.com/SDevTutors/apocalypse-reveal-js',
 		// tldreveal's own bundle, React and tldraw included; pinned to a version
 		tldreveal: {

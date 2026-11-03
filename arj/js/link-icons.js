@@ -26,6 +26,12 @@
  *   }
  * Links that open a new tab (target="_blank", or all of them with newTab)
  * get class opens-tab: an arrow out of a box after the link (arj.css).
+ * A PDF and the print version (?print-pdf) always open in a new tab: a
+ * browser set to show PDFs itself would otherwise replace the slides with
+ * it, even for a download link. Email links (mailto:, or data-mail, which
+ * arj/js/deck.js turns into one) get class opens-app: an envelope with an
+ * arrow after them, as they open the email app (or webmail, if the browser
+ * is set to use it).
  * ?links=favicon-after in the address shows one style everywhere.
  * Links to sites with no icon get a plain link icon (arj.css). Links that are
  * pictures (a QR code), links matching skip, and links inside an element
@@ -99,11 +105,17 @@
 		slide.dataset.links = style;
 		slide.querySelectorAll('a[href]').forEach(function (link) {
 			const other = /^https?:/.test(link.href) && new URL(link.href).origin !== window.location.origin;
-			if (settings.newTab && other && !link.target) {
+			const pdf = /^https?:/.test(link.href) && (/\.pdf$/i.test(link.pathname) || /print-pdf/i.test(link.search));
+			if ((settings.newTab && other || pdf) && !link.target) {
 				link.target = '_blank';
 				link.rel = 'noopener';
 			}
 			if (link.target === '_blank' && !link.closest('.no-link-icon') && !link.querySelector('img')) link.classList.add('opens-tab');
+		});
+		slide.querySelectorAll('a[href^="mailto:"], a[data-mail]').forEach(function (link) {
+			if (link.closest('.no-link-icon') || link.querySelector('img') || link.classList.contains('mail-link')) return;
+			link.classList.add('opens-app');
+			if (!link.title) link.title = 'Opens your email app';
 		});
 		slide.querySelectorAll('a[href^="http"]:not(:has(img))').forEach(function (link) {
 			if (link.matches(settings.skip) || link.closest('.no-link-icon')) return;
