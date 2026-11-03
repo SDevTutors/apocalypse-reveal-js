@@ -30,11 +30,11 @@
 						<p class="byline"><a class="person ext" href="https://sdevtutors.github.io/mark-crowe/"><img class="logo" src="src/img/logo/mc-logo.png" alt="" />Mark Crowe</a></p>
 						<p class="byline"><span class="calendar" aria-hidden="true">📅</span> <time datetime="2026-11-02">November 2026</time></p>						<p class="built-with">Built with <a class="ext" href="https://revealjs.com/"><span class="arj-icon arj-icon-revealjs"></span>Reveal.js</a> and <a class="ext" href="https://github.com/SDevTutors/apocalypse-reveal-js" title="ARJ, Apocalypse Reveal-js"><span class="arj-icon arj-icon-arj"></span>ARJ</a><span class="sep">-</span><a class="ext" href="https://github.com/SDevTutors/apocalypse-reveal-js" title="ARJ's source, on GitHub"><span class="arj-icon arj-icon-github"></span>Source</a></p>
 					</div>
-					<figure class="deck-qr"><a href="https://github.com/SDevTutors/apocalypse-reveal-js"><img src="src/img/qr/qr-repository.svg" alt="QR code: ARJ on GitHub" /></a></figure>
+					<figure class="deck-qr"><img src="src/img/qr/qr-repository.svg" alt="QR code: ARJ on GitHub" /></figure>
 				</div>
 				<footer class="slide-footer no-link-icon">
 					<p class="deck-pdf"><a href="src/pdf/arj-demo.pdf" download="arj-demo.pdf" title="Download the slides as a PDF" aria-label="Download the slides as a PDF">Download as PDF</a></p>
-					<p class="deck-version-line"><a class="version-link ext" href="https://github.com/SDevTutors/apocalypse-reveal-js/commits/master">Version <span class="arj-version">1.8.9</span></a></p>
+					<p class="deck-version-line"><a class="version-link ext" href="https://github.com/SDevTutors/apocalypse-reveal-js/commits/master">Version <span class="arj-version">1.8.10</span></a></p>
 					<p class="deck-url"><a class="ext" href="https://github.com/SDevTutors/apocalypse-reveal-js">github.com/SDevTutors/apocalypse-reveal-js</a></p>
 					<p class="footer-rights"><a class="ext" href="https://sdevtutors.github.io/mark-crowe/">© 2026 Mark Crowe</a><span class="sep">-</span>reveal.js and tldraw belong to their owners</p>
 				</footer>
@@ -47,7 +47,7 @@
 					<li>Every slide shows one thing ARJ adds to <a href="https://revealjs.com/">reveal.js</a></li>
 					<li>Getting around: → for the next topic, ↓ for the slides in it. The contents button, bottom left, opens the contents; type a number and press Enter to jump to it</li>
 					<li>Top right: the padlock, the pen, blackout, all slides, full screen and exit</li>
-					<li>Version <span class="arj-version">1.8.9</span> is year.tenth.change: the year (1 is 2026), which tenth of the year (0 to 9), and one more for every change in that tenth, from 1</li>
+					<li>Version <span class="arj-version">1.8.10</span> is year.tenth.change: the year (1 is 2026), which tenth of the year (0 to 9), and one more for every change in that tenth, from 1</li>
 				</ul>
 			</section>
 
@@ -87,7 +87,7 @@
     lock: true,   // the padlock
     draw: true,   // the pen
     deckScripts: ['link-icons.js', 'deck-controls.js',
-                  'deck.js', 'deck-draw.js', 'deck-search.js'],
+                  'deck.js', 'deck-draw.js', 'deck-search.js', 'deck-zoom.js'],
   });
 &lt;/script&gt;</code></pre>
 			</section>
@@ -172,7 +172,7 @@
 				exit: true, // the exit button: back to the page before, or closes the tab
 			},
 
-			deckScripts: ['link-icons.js', 'deck-controls.js', 'deck.js', 'deck-draw.js', 'deck-search.js'],
+			deckScripts: ['link-icons.js', 'deck-controls.js', 'deck.js', 'deck-draw.js', 'deck-search.js', 'deck-zoom.js'],
 		});
 	</script>
 </body>

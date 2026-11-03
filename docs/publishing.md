@@ -11,6 +11,28 @@ ARJ has no build step: the files in `arj/` are the release. Publishing is giving
 
 `@master` (GitHub) and no version (npm) also work on jsDelivr, but they follow the latest, and jsDelivr can take up to a week to catch up.
 
+## Why versions
+
+GitHub Pages and `@master` are the work in progress: every push changes them, for every deck that loads them, in the middle of someone's talk if need be. A deck that loads a fixed version (`@v1.8.9`) gets exactly what it was tested with, until its owner chooses to move it on. So:
+
+- **Decks load a released version**, from jsDelivr: `https://cdn.jsdelivr.net/gh/SDevTutors/apocalypse-reveal-js@v1.8.9/arj/...`. Your own decks too: move them on to a new version when you've looked at them with it.
+- **GitHub Pages is for the demo** and for trying the latest; tell people not to use it in their decks.
+- **A release is a version you're happy for others to use**: not every commit. Commit as often as you like (each change still gets its version); release when a set of changes is ready.
+- A fixed version is never changed. A mistake in it is fixed by the next version, never by moving the tag.
+
+## In short
+
+```bash
+python tools/commit.py --pdf      # one more change: the version, the demo PDF, a local commit named "1.8.10"
+git push                          # when you're happy with the commit(s)
+python tools/release.py           # tags the version (v1.8.10) on this computer and prints the rest:
+git push origin v1.8.10           #   the tag to GitHub: jsDelivr serves @v1.8.10 at once
+gh release create v1.8.10 --title "ARJ 1.8.10" --generate-notes demo/src/pdf/arj-demo.pdf
+npm publish                       #   only once the npm account and licence are set up (4, below)
+```
+
+Then point the decks at `@v1.8.10` when you're ready to move them on.
+
 ---
 
 ## 1. The version
@@ -19,20 +41,22 @@ ARJ has no build step: the files in `arj/` are the release. Publishing is giving
 python tools/version.py --write
 ```
 
-It adds one to the version (year.tenth.change: one more for every change, back to 1 when a new tenth of the year starts), and writes it into `arj/js/deck-start.js`, `package.json` and `demo/index.html`. Commit with the version first:
+It adds one to the version (year.tenth.change: one more for every change, back to 1 when a new tenth of the year starts), and writes it into `arj/js/deck-start.js`, `package.json`, `demo/index.html` and the readme. Then commit, named by the version. `tools/commit.py` does both, and rebuilds the demo PDF with `--pdf`; it never pushes:
 
 ```bash
-git commit -am "1.8.7 split long lists onto new slides"
+python tools/commit.py --pdf
 ```
 
 ## 2. The tag
 
-The tag is the version with a `v` in front. Tag the commit, then push it:
+The tag is the version with a `v` in front. `tools/release.py` checks there's nothing uncommitted, tags the last commit with the version in `deck-start.js` (on this computer only), and prints the commands for the rest. By hand, the same:
 
 ```bash
 git tag -a v1.8.7 -m "ARJ 1.8.7"
 git push origin master v1.8.7
 ```
+
+A tag not yet pushed can be taken off again: `git tag -d v1.8.7`. Once pushed, leave it: others may be using it.
 
 `https://cdn.jsdelivr.net/gh/SDevTutors/apocalypse-reveal-js@v1.8.7/arj/js/deck-start.js` works as soon as the tag is on GitHub.
 

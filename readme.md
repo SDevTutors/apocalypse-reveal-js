@@ -6,8 +6,9 @@
 **ARJ**, Apocalypse Reveal-js: reusable scripts and styles that sit on top of [reveal.js](https://revealjs.com/) 5. Made for the SDev Tutors decks by [Mark Crowe](https://sdevtutors.github.io/mark-crowe/).
 
 - Source: <https://github.com/SDevTutors/apocalypse-reveal-js>
-- Version: 1.8.9 (year.tenth.change: year 1 is 2026, the tenth of the year 0 to 9, then one more for every change in that tenth, from 1)
+- Version: 1.8.10 (year.tenth.change: year 1 is 2026, the tenth of the year 0 to 9, then one more for every change in that tenth, from 1)
 - Demo: [`demo/index.html`](demo/index.html), and the same slides already printed: [`demo/src/pdf/arj-demo.pdf`](demo/src/pdf/arj-demo.pdf)
+- Releases: load a fixed version in a deck (`@v1.8.9`), not the latest. How to version, tag, release on GitHub, publish to npm and serve from jsDelivr: [`docs/publishing.md`](docs/publishing.md)
 
 ![alt text](docs/images/all-will-be-revealed-my-child.gif)
 
@@ -24,9 +25,10 @@ Everything a deck needs is in the `arj` folder: JavaScript, CSS and pictures, no
 | [`arj/js/deck-start.js`](arj/js/deck-start.js)                         | Starts the deck: `startDeck({...})` runs reveal.js, loads tldreveal for drawing, then loads the other scripts in order                           |
 | [`arj/js/deck-markdown.js`](arj/js/deck-markdown.js)                   | For Markdown decks: classes for field lines ("**Who:** ..."), scene lines, shrinking long slides to fit, on screen and in the print version, and continuing a long list on new slides (`class="split"`) |
 | [`arj/js/link-icons.js`](arj/js/link-icons.js)                         | A website's own icon beside each link, and an arrow out of a box after links that open a new tab                                                 |
-| [`arj/js/deck-controls.js`](arj/js/deck-controls.js)                   | The buttons (slide list, home, contents, blackout, all slides, full screen, exit), the slide list sidebar, the contents slides and the numbering |
+| [`arj/js/deck-controls.js`](arj/js/deck-controls.js)                   | The buttons (slide list, home, contents, blackout, all slides, speaker view, full screen, exit), the slide list sidebar, the contents slides and the numbering |
 | [`arj/js/deck.js`](arj/js/deck.js)                                     | The mouse (wheel, click, right click, middle click), the padlock, footnote jumps, copy buttons on code, email links, the position bar in a stack, the slide at the top of a tall window (`pinTop: true`) |
 | [`arj/js/deck-draw.js`](arj/js/deck-draw.js)                           | The pen button: drawing on the slides with tldreveal                                                                                             |
+| [`arj/js/deck-zoom.js`](arj/js/deck-zoom.js)                           | Click a picture to see it big, the rest dimmed                                                                                                   |
 | [`arj/js/deck-search.js`](arj/js/deck-search.js)                       | The magnifying glass: searches every slide, in place of the browser's Ctrl+F                                                                     |
 | [`arj/css/arj.css`](arj/css/arj.css)                                   | The theme: light slides, navy and gold, 1280 × 720. Code boxes, link icons, and the title slide (`class="title-slide arj-title"`)                |
 | [`arj/css/deck-controls.css`](arj/css/deck-controls.css)               | The buttons, sidebar, contents, padlock, pen, search and exit, and the PDF icon on print and PDF links                                           |
@@ -154,7 +156,7 @@ The browser's own find (Ctrl+F) only sees the slide on the screen, and the slide
 - Each line with a find is listed with its slide, as in Word's navigation pane: in the slide list, in place of the slides (it opens while you search, and closes again after if it was closed), or under the box when there's no slide list or the window is narrow. Click a line to go to it.
 - Esc or the cross closes it; the marks go and you stay on the slide you're on.
 
-It searches the slides' text, not the speaker notes or the contents slides. Capitals don't matter, and a space matches any space or line break. Settings in `startDeck`: `search: false` leaves it out (Ctrl+F is the browser's again), `searchList: 'box'` lists the lines under the box, `searchList: false` doesn't list them. Mark anything it should skip with `class="no-search"`. Add `'deck-search.js'` to `deckScripts`, after `deck-draw.js`.
+It searches the slides' text, not the speaker notes or the contents slides. Capitals don't matter, and a space matches any space or line break. Settings in `startDeck`: `search: false` leaves it out (Ctrl+F is the browser's again), `searchList: 'box'` lists the lines under the box, `searchList: false` doesn't list them. Mark anything it should skip with `class="no-search"`. Add `'deck-search.js'` to `deckScripts`, after `deck-draw.js` (and `'deck-zoom.js'` for picture zoom).
 
 ---
 
@@ -162,10 +164,18 @@ It searches the slides' text, not the speaker notes or the contents slides. Capi
 
 The last button at the top right leaves the slides (`deckControls: { exit: true }`, the default):
 
-- Opened from another page in the same tab, it goes back to that page, however many slides you've been through (with `history: true` each slide is a step in the browser's history, so the browser's Back button only goes back one slide).
-- Opened in a tab of its own, there's no page to go back to: it goes to the exit slide, the slide with `id="exit"` (`exitSlide`), with a big button on it, `<button type="button" data-deck-exit>Click here to exit</button>`, that closes the tab. With no exit slide, the exit button closes the tab itself.
-- Browsers only let a page close a tab it opened itself, or one with no history, so closing may be refused. Then it opens `home` (`deckControls: { home: '../../' }`, the list of decks), or else the page that linked to the slides. The browser's history is never changed, only gone back through.
+- It goes to the exit slide, the last one: the slide with `id="exit"` (`exitSlide`), with a big button on it, `<button type="button" data-deck-exit>Click here to exit</button>`. On the exit slide, or in a deck without one, the exit button does what the big button does.
+- The big button goes back to the page before the slides, however many slides you've been through (with `history: true` each slide is a step in the browser's history, so the browser's Back button only goes back one slide). It finds where the slides start in the browser's own list of pages (the Navigation API), so it still works after a reload.
+- With no page before them (a tab of their own), it closes the tab. Browsers only let a page close a tab that a script opened, so if the tab is still open a moment later it opens `home` (`deckControls: { home: '../../' }`, the list of decks), or else the page that linked to the slides. The browser's history is never changed, only gone back through.
 - `exit: 'index.html'` always goes to that page; `exit: false` leaves the button out.
+
+## Speaker view
+
+With reveal.js's notes plugin (`plugins: [RevealNotes]`), a button at the top right opens the speaker view, the same as the S key: the notes, a timer, and the next slide. For a phone or tablet with no keyboard. `deckControls: { speakerView: false }` leaves it out.
+
+## Picture zoom
+
+[`deck-zoom.js`](arj/js/deck-zoom.js): click a picture and it fills the screen, all of it (the slide may show it small, or cropped to fit), with the rest dimmed and its caption under it. A click anywhere, or Esc, puts it back. It's one picture, not a slideshow. By default it works on a topic slide's picture (`figure.topic-photo img`), the title slide's QR code (bigger, so it scans from the back of the room; it isn't a link) and any picture with `class="zoom"`; `zoom: { pictures: '...' }` names others, `zoom: false` turns it off. A picture inside a link stays a link.
 
 ---
 
@@ -227,4 +237,5 @@ Better still, print it once and keep the PDF with the deck (the demo's is in `de
 | `python tools/serve.py`           | Serves this repository at <http://localhost:8008/>: the demo is at `/demo/`                        |
 | `python tools/version.py --write` | One more change: the new version in `deck-start.js`, `package.json`, the demo and this readme       |
 | `python tools/build_pdf.py`       | Rebuilds [`demo/src/pdf/arj-demo.pdf`](demo/src/pdf/arj-demo.pdf) from the demo's print version. Needs Node 22+ and Edge or Chrome |
+| `python tools/release.py`         | Tags the version on this computer (`v1.8.9`) and prints the commands to push it, make the GitHub release and publish to npm: [`docs/publishing.md`](docs/publishing.md) |
 | `python tools/commit.py`          | `version.py --write`, then a commit on this computer named by the version alone ("1.8.9"); `--pdf` rebuilds the PDF first. Never pushes: amend or undo it first if you like (`git reset --soft HEAD~1`), then push |

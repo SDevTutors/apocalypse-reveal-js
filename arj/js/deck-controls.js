@@ -2,8 +2,8 @@
  * Deck controls for reveal.js decks:
  *   - Bottom left: slide list (the sidebar), home (the first slide) and
  *     contents (the thumbnail slides)
- *   - Top right, reveal.js's own features: blackout, all slides (overview)
- *     and full screen; then exit, back to the page before the deck
+ *   - Top right, reveal.js's own features: blackout, all slides (overview),
+ *     the speaker view (with the notes plugin) and full screen; then exit
  *   - Sidebar: every slide as a tree, vertical slides under their stack.
  *     It stays open beside the slides until closed, on the left or right.
  *     On a narrow screen (a phone upright) it covers the slides instead
@@ -57,15 +57,18 @@
  *                                  // 'bullet' "(5)" at the left of the heading line,
  *                                  // the title still centred; 'corner' in a circle
  *                                  // in the top left; true for "5 – " before it
- *     exit: true,                  // the exit button: back to the page the deck was
- *                                  // opened from, or, if the deck has a tab of its
- *                                  // own, to the exit slide (or closes the tab).
- *                                  // false: no button; an address ('index.html'):
- *                                  // always go there
- *     exitSlide: 'exit',           // the id of the exit slide: a big button on it
- *                                  // (data-deck-exit) closes the tab
- *     home: '',                    // where to go if the browser won't close the
- *                                  // tab ('../../', the list of decks)
+ *     exit: true,                  // the exit button: to the exit slide; on it (or
+ *                                  // with none), leaves the deck, as the exit
+ *                                  // slide's big button does. false: no button;
+ *                                  // an address ('index.html'): always go there
+ *     exitSlide: 'exit',           // the id of the exit slide: its big button
+ *                                  // (data-deck-exit) leaves the deck: back to the
+ *                                  // page before it, or closes the tab
+ *     home: '',                    // where to go if there is no page before and the
+ *                                  // browser won't close the tab ('../../', the
+ *                                  // list of decks)
+ *     speakerView: true,           // the speaker view button, if the deck has
+ *                                  // reveal.js's notes plugin (RevealNotes)
  *     numberHeadingLevels: ['h1', 'h2'], // which headings show it: a slide's first
  *                                  // heading must be one of these. ['h1'] numbers
  *                                  // only section slides in a Markdown deck;
@@ -89,6 +92,7 @@
 		exit: true,
 		exitSlide: 'exit',
 		home: '',
+		speakerView: true,
 		sidebar: true,
 		sidebarSide: 'left',
 		sidebarWidth: 340,
@@ -642,33 +646,58 @@
 	Reveal.on('paused', () => blackoutButton.classList.add('on'));
 	Reveal.on('resumed', () => blackoutButton.classList.remove('on'));
 
+	/* ---------- Speaker view ----------
+	 * reveal.js's notes plugin opens it (the S key); a button too, for a
+	 * phone or a tablet with no keyboard */
+	const notes = Reveal.hasPlugin && Reveal.hasPlugin('notes') ? Reveal.getPlugin('notes') : null;
+
 	/* ---------- Exit ----------
-	 * Back to the page before the deck, however many slides were visited
-	 * (with history: true each slide adds to the browser's history, so the
-	 * browser's Back only goes back one slide). A deck opened in a tab of
-	 * its own has nothing to go back to: the exit button goes to the exit
-	 * slide (exitSlide), whose big button ([data-deck-exit]) closes the tab.
-	 * With no exit slide, the exit button closes the tab itself. If the
-	 * browser won't close it (browsers only let a page close a tab it
-	 * opened, or one with no history), the home page (home) opens, or else
-	 * the page that linked to the deck. The browser's history is never
-	 * changed, only gone back through. */
-	const historyAtStart = window.history.length;
+	 * The exit button goes to the exit slide (exitSlide), the last one; on
+	 * it, or in a deck with none, it leaves, as the exit slide's big button
+	 * ([data-deck-exit]) does. Leaving goes back to the page before the
+	 * deck, however many slides were visited (with history: true each slide
+	 * is a step in the browser's history, so Back only goes back one slide).
+	 * The browser's list of this website's pages in the tab (the Navigation
+	 * API) shows where the deck's own steps start, even after a reload.
+	 * With no page before (a tab of its own), it closes the tab; browsers
+	 * only let a page close a tab that a script opened, so if it's still
+	 * open a moment later, the home page (home) opens, or else the page that
+	 * linked to the deck. History is never rewritten, only gone back through. */
+	const nav = window.navigation && window.navigation.currentEntry ? window.navigation : null;
+
+	function pathOf(url) {
+		try { return new URL(url).pathname.replace(/index\.html$/, ''); } catch (e) { return null; } // docs/memes/ is docs/memes/index.html
+	}
+
+	// How many steps back the page before the deck is, or 0 if there's none
+	function stepsToPageBefore() {
+		if (!nav) return 0;
+		const entries = nav.entries();
+		const here = nav.currentEntry.index;
+		let first = here; // the deck's first step: back while it's still the deck
+		while (first > 0 && pathOf(entries[first - 1].url) === pathOf(window.location.href)) first--;
+		if (first > 0) return here - first + 1;
+		// The deck came first of this website's pages in the tab; the browser
+		// only lists those, so a page from another website before it shows
+		// as more history than they account for
+		return window.history.length > entries.length && document.referrer ? here + 1 : 0;
+	}
 
 	function exitSlide() {
 		return settings.exitSlide ? document.getElementById(settings.exitSlide) : null;
 	}
 
-	function closeDeck() {
-		if (historyAtStart > 1) {
-			window.history.go(-(window.history.length - historyAtStart + 1));
+	function leaveDeck() {
+		const steps = stepsToPageBefore();
+		if (steps) {
+			window.history.go(-steps);
 			return;
 		}
 		window.close();
 		setTimeout(function () { // still here: the browser wouldn't close the tab
-			if (settings.home) window.location.href = settings.home;
-			else if (document.referrer) window.location.href = document.referrer;
-		}, 200);
+			const away = settings.home || document.referrer;
+			if (away) window.location.href = away;
+		}, 300);
 	}
 
 	function exitDeck() {
@@ -677,22 +706,24 @@
 			return;
 		}
 		const slide = exitSlide();
-		if (historyAtStart <= 1 && slide && Reveal.getCurrentSlide() !== slide) {
+		if (slide && Reveal.getCurrentSlide() !== slide) {
 			if (Reveal.isOverview()) Reveal.toggleOverview(false);
 			const at = Reveal.getIndices(slide);
 			Reveal.slide(at.h, at.v);
 			return;
 		}
-		closeDeck();
+		leaveDeck();
 	}
 
-	// The exit slide's own button, and any other marked data-deck-exit
-	document.addEventListener('click', function (event) {
+	// The exit slide's own button, and any other marked data-deck-exit. In
+	// the capture phase, so a locked deck's click (next slide) doesn't take it
+	window.addEventListener('click', function (event) {
 		const target = event.target.closest && event.target.closest('[data-deck-exit]');
 		if (!target) return;
 		event.preventDefault();
-		closeDeck();
-	});
+		event.stopImmediatePropagation();
+		leaveDeck();
+	}, true);
 
 	function goHome() {
 		if (Reveal.isOverview()) Reveal.toggleOverview(false);
@@ -841,8 +872,9 @@
 		dock('top-right', [
 			blackoutButton,
 			button('overview', 'All slides (Esc or O)', () => Reveal.toggleOverview()),
+			notes && settings.speakerView ? button('speaker', 'Speaker view: notes, timer and the next slide (S)', () => notes.open()) : null,
 			fullScreenButton,
-			settings.exit ? button('exit', typeof settings.exit === 'string' ? 'Exit the slides' : 'Exit the slides: back to the page before', exitDeck) : null,
+			settings.exit ? button('exit', typeof settings.exit === 'string' ? 'Exit the slides' : 'Exit: to the last slide, then out of the slides', exitDeck) : null,
 		]);
 		document.body.appendChild(typedBox);
 		showFullScreenState();
