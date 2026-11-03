@@ -840,13 +840,14 @@ html.print-pdf .reveal a.ref[data-cite]::after {
  *   arj-icon-github     GitHub
  *   arj-icon-arj        ARJ's own logo
  *   arj-icon-folder     a folder
+ *   arj-icon-file-md    a file: also -html, -py, -css, -js, -json, -txt
  *
  * Beside links to other websites (a.site-link, from arj/js/link-icons.js),
  * the site's own icon, before the link. ARJ has reveal.js and GitHub; a
  * deck adds its own sites the same way, in its own CSS, its icons beside it:
  *   .reveal a[href*="imdb.com"]::before { background-image: url("../img/favicons/imdb.png"); }
- * a.folder (a link to a folder) gets a folder. Other sites get a plain link
- * icon.
+ * a.folder (a link to a folder) gets a folder, and a link to a file on GitHub
+ * (.../blob/...) its file type. Other sites get a plain link icon.
  * The address goes straight into background-image, not into a variable:
  * browsers read a relative address in a variable from the file that uses
  * the variable (this one), not the file that sets it (the deck's).
@@ -869,6 +870,13 @@ html.print-pdf .reveal a.ref[data-cite]::after {
 .reveal .arj-icon-github { background-image: url("../img/favicons/github.svg"); }
 .reveal .arj-icon-arj { background-image: url("../img/arj-logo.svg"); }
 .reveal .arj-icon-folder { background-image: var(--icon-folder); }
+.reveal .arj-icon-file-md { background-image: var(--icon-file-md); }
+.reveal .arj-icon-file-html { background-image: var(--icon-file-html); }
+.reveal .arj-icon-file-py { background-image: var(--icon-file-py); }
+.reveal .arj-icon-file-css { background-image: var(--icon-file-css); }
+.reveal .arj-icon-file-js { background-image: var(--icon-file-js); }
+.reveal .arj-icon-file-json { background-image: var(--icon-file-json); }
+.reveal .arj-icon-file-txt { background-image: var(--icon-file-txt); }
 
 /* Lowest first: any site (or one a deck names in linkIcons.sites, as
  * --favicon), then ARJ's two, then a folder */
@@ -876,6 +884,28 @@ html.print-pdf .reveal a.ref[data-cite]::after {
 .reveal a[href*="revealjs.com"]::before { background-image: url("../img/favicons/revealjs.svg"); }
 .reveal a[href*="github.com"]::before { background-image: url("../img/favicons/github.svg"); }
 .reveal a.site-link.folder::before { background-image: var(--icon-folder); }
+
+/* Links to a file on GitHub (github.com/.../blob/...): the file's type
+ * rather than GitHub's icon, and the name in the code font, so a file reads
+ * differently from a website. Markdown, HTML, Python, CSS, JavaScript, JSON
+ * and text */
+.reveal {
+	--icon-file-md: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 1h10l4.5 4.5V23H5z' fill='white' stroke='%2344546f' stroke-width='1.4' stroke-linejoin='round'/%3E%3Cpath d='M15 1v4.5h4.5' fill='none' stroke='%2344546f' stroke-width='1.4' stroke-linejoin='round'/%3E%3Crect x='0.5' y='9.5' width='23' height='11.5' rx='2' fill='%233b5a8c'/%3E%3Ctext x='12' y='18.85' font-family='Arial,sans-serif' font-weight='bold' font-size='10' text-anchor='middle' fill='white'%3EMD%3C/text%3E%3C/svg%3E");
+	--icon-file-html: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 1h10l4.5 4.5V23H5z' fill='white' stroke='%2344546f' stroke-width='1.4' stroke-linejoin='round'/%3E%3Cpath d='M15 1v4.5h4.5' fill='none' stroke='%2344546f' stroke-width='1.4' stroke-linejoin='round'/%3E%3Crect x='0.5' y='9.5' width='23' height='11.5' rx='2' fill='%23e34c26'/%3E%3Ctext x='12' y='17.77' font-family='Arial,sans-serif' font-weight='bold' font-size='7' text-anchor='middle' fill='white'%3EHTML%3C/text%3E%3C/svg%3E");
+	--icon-file-py: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 1h10l4.5 4.5V23H5z' fill='white' stroke='%2344546f' stroke-width='1.4' stroke-linejoin='round'/%3E%3Cpath d='M15 1v4.5h4.5' fill='none' stroke='%2344546f' stroke-width='1.4' stroke-linejoin='round'/%3E%3Crect x='0.5' y='9.5' width='23' height='11.5' rx='2' fill='%233572a5'/%3E%3Ctext x='12' y='18.85' font-family='Arial,sans-serif' font-weight='bold' font-size='10' text-anchor='middle' fill='%23ffd43b'%3EPY%3C/text%3E%3C/svg%3E");
+	--icon-file-css: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 1h10l4.5 4.5V23H5z' fill='white' stroke='%2344546f' stroke-width='1.4' stroke-linejoin='round'/%3E%3Cpath d='M15 1v4.5h4.5' fill='none' stroke='%2344546f' stroke-width='1.4' stroke-linejoin='round'/%3E%3Crect x='0.5' y='9.5' width='23' height='11.5' rx='2' fill='%23663399'/%3E%3Ctext x='12' y='18.27' font-family='Arial,sans-serif' font-weight='bold' font-size='8.4' text-anchor='middle' fill='white'%3ECSS%3C/text%3E%3C/svg%3E");
+	--icon-file-js: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 1h10l4.5 4.5V23H5z' fill='white' stroke='%2344546f' stroke-width='1.4' stroke-linejoin='round'/%3E%3Cpath d='M15 1v4.5h4.5' fill='none' stroke='%2344546f' stroke-width='1.4' stroke-linejoin='round'/%3E%3Crect x='0.5' y='9.5' width='23' height='11.5' rx='2' fill='%23f0db4f'/%3E%3Ctext x='12' y='18.85' font-family='Arial,sans-serif' font-weight='bold' font-size='10' text-anchor='middle' fill='%23323330'%3EJS%3C/text%3E%3C/svg%3E");
+	--icon-file-json: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 1h10l4.5 4.5V23H5z' fill='white' stroke='%2344546f' stroke-width='1.4' stroke-linejoin='round'/%3E%3Cpath d='M15 1v4.5h4.5' fill='none' stroke='%2344546f' stroke-width='1.4' stroke-linejoin='round'/%3E%3Crect x='0.5' y='9.5' width='23' height='11.5' rx='2' fill='%2344546f'/%3E%3Ctext x='12' y='17.77' font-family='Arial,sans-serif' font-weight='bold' font-size='7' text-anchor='middle' fill='white'%3EJSON%3C/text%3E%3C/svg%3E");
+	--icon-file-txt: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 1h10l4.5 4.5V23H5z' fill='white' stroke='%2344546f' stroke-width='1.4' stroke-linejoin='round'/%3E%3Cpath d='M15 1v4.5h4.5' fill='none' stroke='%2344546f' stroke-width='1.4' stroke-linejoin='round'/%3E%3Crect x='0.5' y='9.5' width='23' height='11.5' rx='2' fill='%238a96a8'/%3E%3Ctext x='12' y='18.27' font-family='Arial,sans-serif' font-weight='bold' font-size='8.4' text-anchor='middle' fill='white'%3ETXT%3C/text%3E%3C/svg%3E");
+}
+
+.reveal a.site-link:is([href*="/blob/"], [href*="/raw/"])[href$=".md"]::before { background-image: var(--icon-file-md); }
+.reveal a.site-link:is([href*="/blob/"], [href*="/raw/"])[href$=".html"]::before { background-image: var(--icon-file-html); }
+.reveal a.site-link:is([href*="/blob/"], [href*="/raw/"])[href$=".py"]::before { background-image: var(--icon-file-py); }
+.reveal a.site-link:is([href*="/blob/"], [href*="/raw/"])[href$=".css"]::before { background-image: var(--icon-file-css); }
+.reveal a.site-link:is([href*="/blob/"], [href*="/raw/"])[href$=".js"]::before { background-image: var(--icon-file-js); }
+.reveal a.site-link:is([href*="/blob/"], [href*="/raw/"])[href$=".json"]::before { background-image: var(--icon-file-json); }
+.reveal a.site-link:is([href*="/blob/"], [href*="/raw/"])[href$=".txt"]::before { background-image: var(--icon-file-txt); }
 
 .reveal a.site-link:is([href*="/blob/"], [href*="/raw/"]) {
 	font-family: Consolas, "Courier New", monospace;
