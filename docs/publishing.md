@@ -19,7 +19,7 @@ ARJ has no build step: the files in `arj/` are the release. Publishing is giving
 python tools/version.py --write
 ```
 
-It works out today's version (year.tenth.day) from the commits that touch `arj/`, and writes it into `arj/js/deck-start.js`, `package.json` and `demo/index.html`. Commit with the version first:
+It adds one to the version (year.tenth.change: one more for every change, back to 1 when a new tenth of the year starts), and writes it into `arj/js/deck-start.js`, `package.json` and `demo/index.html`. Commit with the version first:
 
 ```bash
 git commit -am "1.8.7 split long lists onto new slides"

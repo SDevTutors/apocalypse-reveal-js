@@ -1,9 +1,9 @@
 /*********************************************************
  * ARJ, Apocalypse Reveal-js: https://github.com/SDevTutors/apocalypse-reveal-js
  * The scripts in this folder sit on top of reveal.js ("all will be
- * revealed"). Version: year.tenth.day, where the year counts from
- * 2026 = 1, the tenth is which tenth of the year (0 to 9), and the day
- * counts the days with changes in that tenth. Set by tools/version.py,
+ * revealed"). Version: year.tenth.change, where the year counts from
+ * 2026 = 1, the tenth is which tenth of the year (0 to 9), and the change
+ * goes up by one with every change, back to 1 in a new tenth. Set by tools/version.py,
  * which writes it into the demo's HTML too.
  *
  * Starts a reveal.js deck, then loads the deck's own scripts in order.
@@ -59,7 +59,7 @@
 	window.ARJ = {
 		name: 'ARJ',
 		longName: 'Apocalypse Reveal-js',
-		version: '1.8.7', date: '2026-11-03',
+		version: '1.8.8', date: '2026-11-03',
 		repository: 'https://github.com/SDevTutors/apocalypse-reveal-js',
 		// tldreveal's own bundle, React and tldraw included; pinned to a version
 		tldreveal: {
