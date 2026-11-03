@@ -58,9 +58,14 @@
  *                                  // the title still centred; 'corner' in a circle
  *                                  // in the top left; true for "5 – " before it
  *     exit: true,                  // the exit button: back to the page the deck was
- *                                  // opened from, or closes the tab if the deck has
- *                                  // a tab of its own. false: no button; an address
- *                                  // ('index.html'): always go there
+ *                                  // opened from, or, if the deck has a tab of its
+ *                                  // own, to the exit slide (or closes the tab).
+ *                                  // false: no button; an address ('index.html'):
+ *                                  // always go there
+ *     exitSlide: 'exit',           // the id of the exit slide: a big button on it
+ *                                  // (data-deck-exit) closes the tab
+ *     home: '',                    // where to go if the browser won't close the
+ *                                  // tab ('../../', the list of decks)
  *     numberHeadingLevels: ['h1', 'h2'], // which headings show it: a slide's first
  *                                  // heading must be one of these. ['h1'] numbers
  *                                  // only section slides in a Markdown deck;
@@ -82,6 +87,8 @@
 		contentsAfter: 0,
 		contentsInFlow: true,
 		exit: true,
+		exitSlide: 'exit',
+		home: '',
 		sidebar: true,
 		sidebarSide: 'left',
 		sidebarWidth: 340,
@@ -639,21 +646,53 @@
 	 * Back to the page before the deck, however many slides were visited
 	 * (with history: true each slide adds to the browser's history, so the
 	 * browser's Back only goes back one slide). A deck opened in a tab of
-	 * its own has nothing to go back to, so the tab closes; if the browser
-	 * won't close it, the page that linked to the deck opens instead. */
+	 * its own has nothing to go back to: the exit button goes to the exit
+	 * slide (exitSlide), whose big button ([data-deck-exit]) closes the tab.
+	 * With no exit slide, the exit button closes the tab itself. If the
+	 * browser won't close it (browsers only let a page close a tab it
+	 * opened, or one with no history), the home page (home) opens, or else
+	 * the page that linked to the deck. The browser's history is never
+	 * changed, only gone back through. */
 	const historyAtStart = window.history.length;
+
+	function exitSlide() {
+		return settings.exitSlide ? document.getElementById(settings.exitSlide) : null;
+	}
+
+	function closeDeck() {
+		if (historyAtStart > 1) {
+			window.history.go(-(window.history.length - historyAtStart + 1));
+			return;
+		}
+		window.close();
+		setTimeout(function () { // still here: the browser wouldn't close the tab
+			if (settings.home) window.location.href = settings.home;
+			else if (document.referrer) window.location.href = document.referrer;
+		}, 200);
+	}
 
 	function exitDeck() {
 		if (typeof settings.exit === 'string') {
 			window.location.href = settings.exit;
 			return;
 		}
-		if (historyAtStart <= 1) window.close();
-		setTimeout(function () { // still here: closing wasn't allowed, or not tried
-			if (historyAtStart > 1) window.history.go(-(window.history.length - historyAtStart + 1));
-			else if (document.referrer) window.location.href = document.referrer;
-		}, 200);
+		const slide = exitSlide();
+		if (historyAtStart <= 1 && slide && Reveal.getCurrentSlide() !== slide) {
+			if (Reveal.isOverview()) Reveal.toggleOverview(false);
+			const at = Reveal.getIndices(slide);
+			Reveal.slide(at.h, at.v);
+			return;
+		}
+		closeDeck();
 	}
+
+	// The exit slide's own button, and any other marked data-deck-exit
+	document.addEventListener('click', function (event) {
+		const target = event.target.closest && event.target.closest('[data-deck-exit]');
+		if (!target) return;
+		event.preventDefault();
+		closeDeck();
+	});
 
 	function goHome() {
 		if (Reveal.isOverview()) Reveal.toggleOverview(false);

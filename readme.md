@@ -110,7 +110,8 @@ Drawing uses [tldreveal](https://github.com/arthurrump/tldreveal) by Arthur Rump
 | Hide or show the drawings | V (tldreveal's key)                             |
 
 - Each slide keeps its own drawings; they come back with the slide.
-- tldraw's tools are at the top centre (`drawToolbar: 'top'`), clear of the slide number. `drawToolbar: 'bottom'` puts them back where tldreveal has them.
+- tldraw's tools are at the top centre (`drawToolbar: 'top'`), clear of the slide number, on one row: tldraw's compact layout puts undo, redo and the actions above the tools, and ARJ puts them side by side (two rows again only in a window too narrow for both). `drawToolbar: 'bottom'` puts them back where tldreveal has them.
+- With `pinTop`, the drawing area moves up with the slide, so at any window size it covers the slide exactly (tldreveal centres it in the window, as reveal.js does the slide).
 - Only the slide can be drawn on, not the margins round it, the buttons or the slide number. While drawing, everything outside the slide is shaded grey, with a gold line round the slide, so you can see where the edge is.
 - While drawing, the mouse belongs to tldraw: `deck.js` doesn't change slides on a click or the wheel, whether locked or not. The padlock keeps its setting for when drawing closes.
 - The pen button only appears when tldreveal has loaded. With `draw: false`, offline, in the print version or in reveal.js's scroll view, there's no button and nothing is loaded.
@@ -147,7 +148,8 @@ A playback button using reveal.js's `autoSlide` (play, pause, speed) could be ad
 The last button at the top right leaves the slides (`deckControls: { exit: true }`, the default):
 
 - Opened from another page in the same tab, it goes back to that page, however many slides you've been through (with `history: true` each slide is a step in the browser's history, so the browser's Back button only goes back one slide).
-- Opened in a tab of its own, it closes the tab. If the browser won't allow that, it opens the page that linked to the slides.
+- Opened in a tab of its own, there's no page to go back to: it goes to the exit slide, the slide with `id="exit"` (`exitSlide`), with a big button on it, `<button type="button" data-deck-exit>Click here to exit</button>`, that closes the tab. With no exit slide, the exit button closes the tab itself.
+- Browsers only let a page close a tab it opened itself, or one with no history, so closing may be refused. Then it opens `home` (`deckControls: { home: '../../' }`, the list of decks), or else the page that linked to the slides. The browser's history is never changed, only gone back through.
 - `exit: 'index.html'` always goes to that page; `exit: false` leaves the button out.
 
 ---

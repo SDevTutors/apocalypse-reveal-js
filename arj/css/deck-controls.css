@@ -111,6 +111,13 @@ body.arj-drawing .reveal .tldreveal .tl-canvas {
 	box-shadow: 0 0 0 200vmax rgba(16, 35, 74, 0.14);
 }
 
+/* tldreveal centres its drawing area in the window, as reveal.js centres the
+ * slide. With pinTop (arj/js/deck.js) the slide sits higher, so the drawing
+ * area moves up with it, by the same --arj-lift */
+.reveal .tldreveal .tl-canvas {
+	translate: 0 calc(-1 * var(--arj-lift, 0px));
+}
+
 /* tldraw's tools at the top centre (drawToolbar: 'top', the default), clear
  * of the slide number at the bottom */
 body.arj-draw-toolbar-top .tldreveal .tlui-layout {
@@ -123,6 +130,26 @@ body.arj-draw-toolbar-top .tldreveal .tlui-layout__bottom {
 
 body.arj-draw-toolbar-top .tldreveal .tlui-layout__top {
 	grid-row: 2;
+}
+
+/* tldraw's compact layout puts undo, redo and the actions on one row and
+ * the tools under them: one row instead, side by side, back to two only
+ * in a window too narrow for both */
+.tldreveal .tlui-toolbar__left {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+}
+
+.tldreveal .tlui-toolbar__inner {
+	align-items: center;
+}
+
+.tldreveal .tlui-toolbar__extras {
+	top: 2px; /* tldraw's 6px sits it over the tools; level with them instead */
+	width: max-content;
+	flex: 0 0 auto;
 }
 
 /* Locked: no selecting by accident while clicking through. Form fields keep it */
@@ -161,6 +188,44 @@ body.arj-draw-toolbar-top .tldreveal .tlui-layout__top {
 	margin-right: 0.25em;
 	vertical-align: -0.1em;
 	background: var(--icon-pdf) center / contain no-repeat;
+}
+
+/* ---------- The exit slide's button ----------
+ * <button type="button" data-deck-exit>Click here to exit</button> on the
+ * exit slide (deckControls.exitSlide): big, gold, the exit icon before it */
+.reveal button[data-deck-exit] {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	padding: 0.35em 1.1em;
+	font: bold 48px Arial, Helvetica, sans-serif;
+	color: var(--navy, #10234a);
+	background: var(--gold, #e8b232);
+	border: 0;
+	border-radius: 16px;
+	box-shadow: 0 5px 0 #b8871a;
+	cursor: pointer;
+}
+
+.reveal button[data-deck-exit]::before {
+	content: "";
+	width: 1em;
+	height: 1em;
+	background: currentColor;
+	-webkit-mask: var(--icon-exit) center / contain no-repeat;
+	mask: var(--icon-exit) center / contain no-repeat;
+}
+
+.reveal button[data-deck-exit]:hover,
+.reveal button[data-deck-exit]:focus-visible {
+	filter: brightness(1.08);
+	outline: 3px solid var(--navy, #10234a);
+	outline-offset: 4px;
+}
+
+.reveal button[data-deck-exit]:active {
+	translate: 0 3px;
+	box-shadow: 0 2px 0 #b8871a;
 }
 
 /* ---------- Links that open a new tab, or leave the deck ----------

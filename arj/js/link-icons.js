@@ -3,8 +3,8 @@
  * "IMDb" or "Wikiquote" can be seen at a glance. Load after the slides
  * exist and after arj/js/deck-markdown.js (the 'label' style uses its
  * field classes), before arj/js/deck-controls.js. This marks the links
- * (a.site-link) and each horizontal slide (data-links); arj/css/arj.css
- * draws them:
+ * (a.site-link) and each slide (data-links), in the print version too;
+ * arj/css/arj.css draws them:
  *   favicon-before   icon, then the link, then the new-tab mark (the default)
  *   favicon-after    the link, then the icon
  *   link-icon        the link, then a plain link icon
@@ -88,10 +88,16 @@
 		});
 	}
 
-	document.querySelectorAll('.reveal .slides > section').forEach(function (top, h) {
-		const style = styleFor(h);
-		top.dataset.links = style;
-		top.querySelectorAll('a[href]').forEach(function (link) {
+	// Each slide on its own: the print version (?print-pdf) moves the slides
+	// into pages of their own, so they aren't always .slides > section
+	function topicOf(slide) {
+		try { return Reveal.getIndices(slide).h || 0; } catch (e) { return 0; }
+	}
+
+	document.querySelectorAll('.reveal .slides section:not(:has(section))').forEach(function (slide) {
+		const style = styleFor(topicOf(slide));
+		slide.dataset.links = style;
+		slide.querySelectorAll('a[href]').forEach(function (link) {
 			const other = /^https?:/.test(link.href) && new URL(link.href).origin !== window.location.origin;
 			if (settings.newTab && other && !link.target) {
 				link.target = '_blank';
@@ -99,13 +105,13 @@
 			}
 			if (link.target === '_blank' && !link.closest('.no-link-icon') && !link.querySelector('img')) link.classList.add('opens-tab');
 		});
-		top.querySelectorAll('a[href^="http"]:not(:has(img))').forEach(function (link) {
+		slide.querySelectorAll('a[href^="http"]:not(:has(img))').forEach(function (link) {
 			if (link.matches(settings.skip) || link.closest('.no-link-icon')) return;
 			const site = siteOf(link.href);
 			link.classList.add('site-link');
 			// An absolute address: a relative one in a CSS variable is read from the CSS file
 			if (site) link.style.setProperty('--favicon', 'url("' + site[0] + '")');
 		});
-		if (style === 'favicon-label') replaceLabels(top);
+		if (style === 'favicon-label') replaceLabels(slide);
 	});
 })();
