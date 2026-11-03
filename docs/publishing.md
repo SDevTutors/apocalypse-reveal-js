@@ -41,7 +41,7 @@ git push origin master v1.8.7
 A release is a tag with a page: notes, and files to download. With the [GitHub CLI](https://cli.github.com/):
 
 ```bash
-gh release create v1.8.7 --title "ARJ 1.8.7" --generate-notes demo/arj-demo.pdf
+gh release create v1.8.7 --title "ARJ 1.8.7" --generate-notes demo/src/pdf/arj-demo.pdf
 ```
 
 GitHub adds the source as a .zip and a .tar.gz to every release. The demo PDF goes with it so the release shows what ARJ looks like.

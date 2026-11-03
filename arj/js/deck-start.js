@@ -18,6 +18,7 @@
  *         'deck-controls.js',
  *         'deck.js',
  *         'deck-draw.js',
+ *         'deck-search.js',                   // search every slide (Ctrl+F)
  *       ],
  *     });
  *   </script>
@@ -59,7 +60,7 @@
 	window.ARJ = {
 		name: 'ARJ',
 		longName: 'Apocalypse Reveal-js',
-		version: '1.8.8', date: '2026-11-03',
+		version: '1.8.9', date: '2026-11-03',
 		repository: 'https://github.com/SDevTutors/apocalypse-reveal-js',
 		// tldreveal's own bundle, React and tldraw included; pinned to a version
 		tldreveal: {

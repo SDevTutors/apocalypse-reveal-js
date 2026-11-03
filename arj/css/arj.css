@@ -793,6 +793,39 @@
 	color: #d7e2f5;
 }
 
+/* A topic slide's picture: <figure class="topic-photo">, a numbered caption
+ * underneath, its credit on Media used (the picture marker jumps there).
+ * 16:9, cropped to fit, with rounded corners, a little softer than the
+ * original so it doesn't outshine the text. The caption is centred under it. */
+.reveal figure.topic-photo {
+	width: fit-content;
+	max-width: 100%;
+	margin: 0.6em auto 0;
+}
+
+.reveal figure.topic-photo img {
+	display: block;
+	max-width: 100%;
+	height: calc(400px * var(--fit, 1));
+	aspect-ratio: 16 / 9;
+	margin: 0;
+	object-fit: cover;
+	border-radius: 22px;
+	filter: contrast(0.9) saturate(0.95);
+	opacity: 0.93;
+}
+
+.reveal figure.topic-photo figcaption {
+	margin-top: 8px;
+	font-size: 22px;
+	text-align: center;
+	color: var(--muted);
+}
+
+.reveal figure.topic-photo figcaption a {
+	color: inherit;
+}
+
 /* Footnote jump: the line you landed on, and the way back (arj/js/deck.js) */
 .reveal .entry-target {
 	background: #fff3cf;
@@ -982,25 +1015,24 @@ html.print-pdf .reveal a.ref[data-cite]::after {
 /*********************************************************
  * Title slide, opt in: <section class="title-slide arj-title">, in Markdown
  * <!-- .slide: class="title-slide arj-title" -->. The title centred; the
- * subtitle on the left; the QR code to the deck online on the right, big,
- * its top level with the top of the subtitle's letters; under the subtitle
- * the author line (name, date) and "Built with", centred.
- * The footer, small, all the size of the copyright: the version on the
- * footer's top line, at the right; under the line the deck's own address on
- * the left and the short address to type in on the right (.deck-short, a
- * link, data-tip: hover shows it big, and the big one is clickable too);
- * then the copyright and the owners line, centred.
+ * QR code to the deck online on the right, big, its top level with the top
+ * of the subtitle's letters. Beside it, centred and smaller each time: the
+ * subtitle (h3), the name (p.byline), the date (a second p.byline), a short
+ * quote (p.title-quote, its <cite> plain), then "Built with".
+ * The footer, small. On its line: "Download as PDF" on the left (p.deck-pdf,
+ * the PDF icon from arj/css/deck-controls.css), the copyright centred
+ * (p.footer-rights), the version on the right (p.deck-version-line). Under
+ * the line: the short address to type in on the left (p.deck-short, a link,
+ * data-tip: hover shows it big, and the big one is clickable too), the
+ * deck's own address on the right (p.deck-url).
  * Links draw their own icons here (.no-link-icon stops arj/js/link-icons.js):
  * a logo or icon before, an external-link mark after (a.ext).
  * Separators are spaced en dashes (span.sep).
  *********************************************************/
-/* The title centred, the subtitle read from the left */
-.reveal .slides .arj-title h1 {
-	text-align: center;
-}
-
+/* The title and the subtitle centred */
+.reveal .slides .arj-title h1,
 .reveal .slides .arj-title h3 {
-	text-align: left;
+	text-align: center;
 }
 
 /* The title, big, with a gold bar the full width under it */
@@ -1038,7 +1070,7 @@ html.print-pdf .reveal .slides .pdf-page > section.arj-title {
 
 .reveal .arj-title .title-text h3 {
 	margin-top: 0;
-	font-size: 40px;
+	font-size: 52px;
 }
 
 .reveal .arj-title .byline,
@@ -1047,8 +1079,26 @@ html.print-pdf .reveal .slides .pdf-page > section.arj-title {
 }
 
 .reveal .arj-title .byline {
-	margin-top: 1.8em;
-	font-size: 28px;
+	margin-top: 0.9em;
+	font-size: 40px;
+}
+
+/* The date, on a line of its own under the name */
+.reveal .arj-title .byline + .byline {
+	margin-top: 0.3em;
+	font-size: 30px;
+}
+
+.reveal .arj-title .title-quote {
+	margin: 1em 0 0;
+	font-size: 24px;
+	font-style: italic;
+	text-align: center;
+	color: var(--muted);
+}
+
+.reveal .arj-title .title-quote cite {
+	font-style: normal;
 }
 
 .reveal .arj-title .built-with {
@@ -1112,10 +1162,9 @@ html.print-pdf .reveal .slides .pdf-page > section.arj-title {
 	font-size: 0.85em;
 }
 
-/* The footer: small, out of the way of the title. The version on the line,
- * at the right. Under the line, left: the deck's address; right: the short
- * address. Then the copyright, centred, clear of the buttons at the bottom
- * corners */
+/* The footer: small, out of the way of the title. On the line: the PDF
+ * left, the copyright centred, the version right. Under the line, left:
+ * the short address; right: the deck's address */
 .reveal .arj-title .slide-footer {
 	display: grid;
 	grid-template-columns: auto auto;
@@ -1133,19 +1182,31 @@ html.print-pdf .reveal .slides .pdf-page > section.arj-title {
 	line-height: 1.4;
 }
 
-.reveal .arj-title .deck-version-line {
+.reveal .arj-title .deck-version-line,
+.reveal .arj-title .deck-pdf,
+.reveal .arj-title .footer-rights {
 	position: absolute;
-	right: 0;
 	bottom: 100%;
 	padding-bottom: 6px;
 	line-height: 1;
 }
 
-.reveal .arj-title .deck-url {
-	grid-column: 1;
+.reveal .arj-title .deck-version-line {
+	right: 0;
+}
+
+.reveal .arj-title .deck-pdf {
+	left: 0;
 }
 
 .reveal .arj-title .deck-short {
+	grid-row: 1;
+	grid-column: 1;
+	text-align: left;
+}
+
+.reveal .arj-title .deck-url {
+	grid-row: 1;
 	grid-column: 2;
 	text-align: right;
 }
@@ -1154,10 +1215,17 @@ html.print-pdf .reveal .slides .pdf-page > section.arj-title {
 	color: var(--navy);
 }
 
+/* Centred across the whole footer; the PDF and the version stay clickable */
 .reveal .arj-title .footer-rights {
-	grid-column: 1 / -1;
-	margin-top: 4px !important;
+	left: 0;
+	right: 0;
+	margin: 0 !important;
 	text-align: center;
+	pointer-events: none;
+}
+
+.reveal .arj-title .footer-rights a {
+	pointer-events: auto;
 }
 
 .reveal .arj-title .slide-footer a {
@@ -1233,4 +1301,37 @@ html.print-pdf .reveal .slides .pdf-page > section.arj-title {
 .reveal .author-name a,
 .reveal li > a.ext {
 	text-decoration: none;
+}
+
+/*********************************************************
+ * The last slide before the exit, <section class="finish-slide">: a big
+ * "Questions?" centred (p.finish-questions), an emoji before it
+ * (span.finish-emoji).
+ *********************************************************/
+.reveal .finish-slide p.finish-questions {
+	margin: 0.9em 0 0.8em;
+	font-size: 72px;
+	font-weight: bold;
+	text-align: center;
+	color: var(--navy);
+}
+
+.reveal .finish-slide .finish-emoji {
+	margin-right: 0.3em;
+	font-family: var(--emoji);
+}
+
+/*********************************************************
+ * The exit slide, the last one: the big button (styled in
+ * arj/css/deck-controls.css) in the middle, a line under it.
+ *********************************************************/
+.reveal .exit-slide p.exit-now {
+	margin: 2.2em 0 0.8em;
+	text-align: center;
+}
+
+.reveal .exit-slide p.exit-note {
+	font-size: 26px;
+	text-align: center;
+	color: var(--muted);
 }

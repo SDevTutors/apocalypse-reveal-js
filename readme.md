@@ -6,8 +6,8 @@
 **ARJ**, Apocalypse Reveal-js: reusable scripts and styles that sit on top of [reveal.js](https://revealjs.com/) 5. Made for the SDev Tutors decks by [Mark Crowe](https://sdevtutors.github.io/mark-crowe/).
 
 - Source: <https://github.com/SDevTutors/apocalypse-reveal-js>
-- Version: 1.8.8 (year.tenth.change: year 1 is 2026, the tenth of the year 0 to 9, then one more for every change in that tenth, from 1)
-- Demo: [`demo/index.html`](demo/index.html), and the same slides already printed: [`demo/arj-demo.pdf`](demo/arj-demo.pdf)
+- Version: 1.8.9 (year.tenth.change: year 1 is 2026, the tenth of the year 0 to 9, then one more for every change in that tenth, from 1)
+- Demo: [`demo/index.html`](demo/index.html), and the same slides already printed: [`demo/src/pdf/arj-demo.pdf`](demo/src/pdf/arj-demo.pdf)
 
 ![alt text](docs/images/all-will-be-revealed-my-child.gif)
 
@@ -27,8 +27,9 @@ Everything a deck needs is in the `arj` folder: JavaScript, CSS and pictures, no
 | [`arj/js/deck-controls.js`](arj/js/deck-controls.js)                   | The buttons (slide list, home, contents, blackout, all slides, full screen, exit), the slide list sidebar, the contents slides and the numbering |
 | [`arj/js/deck.js`](arj/js/deck.js)                                     | The mouse (wheel, click, right click, middle click), the padlock, footnote jumps, copy buttons on code, email links, the position bar in a stack, the slide at the top of a tall window (`pinTop: true`) |
 | [`arj/js/deck-draw.js`](arj/js/deck-draw.js)                           | The pen button: drawing on the slides with tldreveal                                                                                             |
+| [`arj/js/deck-search.js`](arj/js/deck-search.js)                       | The magnifying glass: searches every slide, in place of the browser's Ctrl+F                                                                     |
 | [`arj/css/arj.css`](arj/css/arj.css)                                   | The theme: light slides, navy and gold, 1280 × 720. Code boxes, link icons, and the title slide (`class="title-slide arj-title"`)                |
-| [`arj/css/deck-controls.css`](arj/css/deck-controls.css)               | The buttons, sidebar, contents, padlock, pen and exit, and the PDF icon on print and PDF links                                                   |
+| [`arj/css/deck-controls.css`](arj/css/deck-controls.css)               | The buttons, sidebar, contents, padlock, pen, search and exit, and the PDF icon on print and PDF links                                           |
 | [`arj/img/arj-logo.svg`](arj/img/arj-logo.svg)                         | The ARJ logo (`tap-logo.png` is the old one)                                                                                                     |
 | [`arj/img/favicons/`](arj/img/favicons/)                               | ARJ's own two website icons, reveal.js and GitHub, drawn by `arj.css` ("Icons"). A deck keeps any others itself, with its own CSS              |
 | [`arj/img/meme/expanding-brain.jpg`](arj/img/meme/expanding-brain.jpg) | The expanding brain meme, for the theme's `.brain` layout                                                                                        |
@@ -143,6 +144,20 @@ A playback button using reveal.js's `autoSlide` (play, pause, speed) could be ad
 
 ---
 
+## Search
+
+The browser's own find (Ctrl+F) only sees the slide on the screen, and the slide list if it's open. [`deck-search.js`](arj/js/deck-search.js) searches every slide instead: the magnifying glass, first of the top right buttons, or Ctrl+F (Cmd+F on a Mac), which it takes over from the browser.
+
+- It searches as you type, and counts the finds: "3 of 41".
+- Enter, Down or F3 goes to the next find, on whichever slide it is (and on to its fragment, if that hasn't appeared yet); Shift+Enter, Up or Shift+F3 to the one before. The arrows beside the count do the same.
+- Every find is marked in yellow, the current one in orange; the slides themselves don't change (the browser's highlight API).
+- Each line with a find is listed with its slide, as in Word's navigation pane: in the slide list, in place of the slides (it opens while you search, and closes again after if it was closed), or under the box when there's no slide list or the window is narrow. Click a line to go to it.
+- Esc or the cross closes it; the marks go and you stay on the slide you're on.
+
+It searches the slides' text, not the speaker notes or the contents slides. Capitals don't matter, and a space matches any space or line break. Settings in `startDeck`: `search: false` leaves it out (Ctrl+F is the browser's again), `searchList: 'box'` lists the lines under the box, `searchList: false` doesn't list them. Mark anything it should skip with `class="no-search"`. Add `'deck-search.js'` to `deckScripts`, after `deck-draw.js`.
+
+---
+
 ## Exit
 
 The last button at the top right leaves the slides (`deckControls: { exit: true }`, the default):
@@ -170,7 +185,9 @@ A site with no icon gets a plain link icon. With `linkIcons: { newTab: true }` l
 
 ## Title slide
 
-`<section class="title-slide arj-title">` lays out a title slide like the demo's: the title centred with a gold bar, the subtitle with a big QR code level with the top of its letters, the author and date, "Built with", and a small footer: the version on the footer's line at the right; under the line the deck's own address on the left and a short address to type in on the right (`<p class="deck-short"><a href="..." data-tip="..." data-tip-size="72">`: hover shows it big, and the big one is clickable too); the copyright under them. See [`demo/index.html`](demo/index.html) for the HTML. The QR code is just the code, with no white margin:
+`<section class="title-slide arj-title">` lays out a title slide like the demo's: the title centred with a gold bar, a big QR code on the right level with the top of the subtitle's letters, and beside it, centred and smaller each time, the subtitle (`h3`), the name (`p.byline`), the date (a second `p.byline`), a short quote if you like (`p.title-quote`) and "Built with". A small footer: on its line "Download as PDF" on the left (`p.deck-pdf`), the copyright in the middle (`p.footer-rights`) and the version on the right (`p.deck-version-line`); under the line a short address to type in on the left (`<p class="deck-short"><a href="..." data-tip="..." data-tip-size="72">`: hover shows it big, and the big one is clickable too) and the deck's own address on the right (`p.deck-url`). Leave out any you don't need. See [`demo/index.html`](demo/index.html) for the HTML.
+
+`arj.css` also has a topic slide's picture (`<figure class="topic-photo">`, 16:9 with a caption), the last slide before the exit (`<section class="finish-slide">` with a big `p.finish-questions`) and the exit slide (`p.exit-now` round the button, `p.exit-note` under it). The QR code is just the code, with no white margin:
 
 ```py
 qr_logo.py URL LOGO.png OUT.svg --border 0 # in the meme bank's tools makes one.
@@ -186,10 +203,10 @@ reveal.js makes the print version: add `?print-pdf` to the address, then print a
 <a href="?print-pdf" target="_blank">Print version</a>, then Save as PDF
 ```
 
-Better still, print it once and put the PDF beside the deck, so people can download it:
+Better still, print it once and keep the PDF with the deck (the demo's is in `demo/src/pdf/`), so people can download it:
 
 ```html
-<a href="arj-demo.pdf" download>Download the PDF</a>
+<a href="src/pdf/arj-demo.pdf" download>Download the PDF</a>
 ```
 
 [`deck-controls.css`](arj/css/deck-controls.css) puts a red PDF icon before any `href="?print-pdf"` link and any link to a `.pdf` file. In the print version, [`deck-markdown.js`](arj/js/deck-markdown.js) shrinks each long slide to fit its page (not a title slide, `.arj-title`, or one marked `no-fit`), and the padlock and pen aren't shown.
@@ -200,3 +217,14 @@ Better still, print it once and put the PDF beside the deck, so people can downl
 
 - reveal.js 5.1.0
 - tldreveal 1.2.0
+
+---
+
+## Tools
+
+| Command                           | What it does                                                                                       |
+|-----------------------------------|----------------------------------------------------------------------------------------------------|
+| `python tools/serve.py`           | Serves this repository at <http://localhost:8008/>: the demo is at `/demo/`                        |
+| `python tools/version.py --write` | One more change: the new version in `deck-start.js`, `package.json`, the demo and this readme       |
+| `python tools/build_pdf.py`       | Rebuilds [`demo/src/pdf/arj-demo.pdf`](demo/src/pdf/arj-demo.pdf) from the demo's print version. Needs Node 22+ and Edge or Chrome |
+| `python tools/commit.py`          | `version.py --write`, then a commit on this computer named by the version alone ("1.8.9"); `--pdf` rebuilds the PDF first. Never pushes: amend or undo it first if you like (`git reset --soft HEAD~1`), then push |
