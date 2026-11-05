@@ -40,8 +40,8 @@
  *     contentsTitle: 'Contents',
  *     contentsPageCount: true,     // "Contents (1 of 3)", or just "Contents" on every page
  *     contentsAfter: 0,            // put them after this slide (0 = the title slide)
- *     contentsInFlow: true,        // false: next and back step over the contents;
- *                                  // the Contents button and slide list still go there
+ *     contentsInFlow: false,       // next and back step over the contents; the Contents
+ *                                  // button and slide list still go there. true: they don't
  *     sidebar: true,
  *     sidebarSide: 'left',         // or 'right'; the viewer can switch, and it is remembered
  *     sidebarWidth: 340,           // pixels
@@ -88,7 +88,7 @@
 		contentsTitle: 'Contents',
 		contentsPageCount: true,
 		contentsAfter: 0,
-		contentsInFlow: true,
+		contentsInFlow: false,
 		exit: true,
 		exitSlide: 'exit',
 		home: '',

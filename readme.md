@@ -6,7 +6,7 @@
 **ARJ**, Apocalypse Reveal-js: reusable scripts and styles that sit on top of [reveal.js](https://revealjs.com/) 5. Made for the SDev Tutors decks by [Mark Crowe](https://sdevtutors.github.io/mark-crowe/).
 
 - Source: <https://github.com/SDevTutors/apocalypse-reveal-js>
-- Version: 1.8.11 (year.tenth.change: year 1 is 2026, the tenth of the year 0 to 9, then one more for every change in that tenth, from 1)
+- Version: 1.8.12 (year.tenth.change: year 1 is 2026, the tenth of the year 0 to 9, then one more for every change in that tenth, from 1)
 - Demo: [`demo/index.html`](demo/index.html), and the same slides already printed: [`demo/src/pdf/arj-demo.pdf`](demo/src/pdf/arj-demo.pdf)
 - Releases: load a fixed version in a deck (`@v1.8.9`), not the latest. How to version, tag, release on GitHub, publish to npm and serve from jsDelivr: [`docs/publishing.md`](docs/publishing.md)
 
