@@ -8,6 +8,7 @@
 - Source: <https://github.com/SDevTutors/apocalypse-reveal-js>
 - Version: 1.8.15 (year.tenth.change: year 1 is 2026, the tenth of the year 0 to 9, then one more for every change in that tenth, from 1)
 - Demo: [`demo/index.html`](demo/index.html), and the same slides already printed: [`demo/src/pdf/arj-demo.pdf`](demo/src/pdf/arj-demo.pdf)
+- Install: from jsDelivr (nothing to install), with npm, or from a zip: [`docs/install.md`](docs/install.md)
 - Releases: load a fixed version in a deck (`@v1.8.9`), not the latest. How to version, tag, release on GitHub, publish to npm and serve from jsDelivr: [`docs/publishing.md`](docs/publishing.md)
 
 ![alt text](docs/images/all-will-be-revealed-my-child.gif)
@@ -39,6 +40,8 @@ Everything a deck needs is in the `arj` folder: JavaScript, CSS and pictures, no
 ---
 
 ## Using it in a presentation
+
+The three ways to install it (jsDelivr, npm, a zip), with the lines to copy: [`docs/install.md`](docs/install.md).
 
 ### With a copy of the folder
 

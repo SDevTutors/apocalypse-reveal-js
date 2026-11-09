@@ -77,6 +77,48 @@
 				</section>
 			</section>
 
+			<section id="install">
+				<section>
+					<h2>Installing ARJ</h2>
+					<ul>
+						<li>From jsDelivr: nothing to install, works on GitHub Pages</li>
+						<li>With npm: needs Node.js, and <code>node_modules/</code> in <code>.gitignore</code></li>
+						<li>From a zip: copy the <code>arj</code> folder next to the deck</li>
+						<li>Down for the code to copy. All of it: <a class="ext" href="https://github.com/SDevTutors/apocalypse-reveal-js/blob/master/docs/install.md">docs/install.md</a></li>
+					</ul>
+				</section>
+				<section>
+					<h2>1. From jsDelivr</h2>
+					<p>Nothing to install. In the deck's HTML:</p>
+					<pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apocalypse-reveal-js@1.8.15/arj/css/arj.css" /&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/apocalypse-reveal-js@1.8.15/arj/css/deck-controls.css" /&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/apocalypse-reveal-js@1.8.15/arj/js/deck-start.js"&gt;&lt;/script&gt;</code></pre>
+					<p>Change <code>1.8.15</code> to move to a new version.</p>
+				</section>
+				<section>
+					<h2>2. With npm</h2>
+					<p>Needs Node.js. In the top folder of the deck's repository:</p>
+					<pre><code>npm install apocalypse-reveal-js@1.8.15</code></pre>
+					<p>Add <code>node_modules/</code> to <code>.gitignore</code>; commit <code>package.json</code> and <code>package-lock.json</code>.</p>
+				</section>
+				<section>
+					<h2>2. With npm: the deck</h2>
+					<p>A deck two folders down (<code>docs/memes/</code>) goes up two:</p>
+					<pre><code>&lt;link rel="stylesheet" href="../../node_modules/apocalypse-reveal-js/arj/css/arj.css" /&gt;
+&lt;link rel="stylesheet" href="../../node_modules/apocalypse-reveal-js/arj/css/deck-controls.css" /&gt;
+&lt;script src="../../node_modules/apocalypse-reveal-js/arj/js/deck-start.js"&gt;&lt;/script&gt;</code></pre>
+					<p>GitHub Pages doesn't run npm: use jsDelivr for a published deck.</p>
+				</section>
+				<section>
+					<h2>3. From a zip</h2>
+					<p>Download <a class="ext" href="https://github.com/SDevTutors/apocalypse-reveal-js/releases">Source code (zip)</a> from a release, copy its <code>arj</code> folder next to the deck, then:</p>
+					<pre><code>&lt;link rel="stylesheet" href="arj/css/arj.css" /&gt;
+&lt;link rel="stylesheet" href="arj/css/deck-controls.css" /&gt;
+&lt;script src="arj/js/deck-start.js"&gt;&lt;/script&gt;</code></pre>
+					<p>Commit the folder with the deck, and keep the <code>LICENSE</code> with it.</p>
+				</section>
+			</section>
+
 			<section id="code-box">
 				<h2>A code box</h2>
 				<p>The copy icon at the top right copies the code; it turns into a tick.</p>
