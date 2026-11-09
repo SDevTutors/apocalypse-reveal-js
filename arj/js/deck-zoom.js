@@ -1,3 +1,4 @@
+/*! ARJ, Apocalypse Reveal-js | (c) 2026 Mark Crowe | MIT licence, see LICENSE | https://github.com/SDevTutors/apocalypse-reveal-js */
 /*********************************************************
  * Picture zoom for ARJ: click a picture on a slide and it fills the
  * screen, the whole picture (a slide may show it small or cropped), with

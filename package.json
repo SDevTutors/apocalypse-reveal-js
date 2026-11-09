@@ -1,6 +1,6 @@
 {
 	"name": "apocalypse-reveal-js",
-	"version": "1.8.12",
+	"version": "1.8.14",
 	"description": "ARJ, Apocalypse Reveal-js: scripts and styles that sit on top of reveal.js 5",
 	"keywords": [
 		"reveal.js",
@@ -15,6 +15,7 @@
 	},
 	"bugs": "https://github.com/SDevTutors/apocalypse-reveal-js/issues",
 	"author": "Mark Crowe (https://sdevtutors.github.io/mark-crowe/)",
+	"license": "MIT",
 	"files": [
 		"arj/"
 	],

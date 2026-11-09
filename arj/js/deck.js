@@ -1,3 +1,4 @@
+/*! ARJ, Apocalypse Reveal-js | (c) 2026 Mark Crowe | MIT licence, see LICENSE | https://github.com/SDevTutors/apocalypse-reveal-js */
 /*********************************************************
  * Shared behaviour for the reveal.js decks in this folder.
  * Load after Reveal.initialize(), with mouseWheel left off

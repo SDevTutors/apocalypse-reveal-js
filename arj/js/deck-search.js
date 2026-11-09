@@ -1,3 +1,4 @@
+/*! ARJ, Apocalypse Reveal-js | (c) 2026 Mark Crowe | MIT licence, see LICENSE | https://github.com/SDevTutors/apocalypse-reveal-js */
 /*********************************************************
  * Search for ARJ: finds words on every slide, not just the one on the
  * screen, as the browser's own find (Ctrl+F) can't see the others.

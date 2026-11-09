@@ -1,3 +1,4 @@
+/*! ARJ, Apocalypse Reveal-js | (c) 2026 Mark Crowe | MIT licence, see LICENSE | https://github.com/SDevTutors/apocalypse-reveal-js */
 /*********************************************************
  * ARJ, Apocalypse Reveal-js: https://github.com/SDevTutors/apocalypse-reveal-js
  * The scripts in this folder sit on top of reveal.js ("all will be
@@ -61,7 +62,7 @@
 	window.ARJ = {
 		name: 'ARJ',
 		longName: 'Apocalypse Reveal-js',
-		version: '1.8.12', date: '2026-11-05',
+		version: '1.8.14', date: '2026-11-09',
 		repository: 'https://github.com/SDevTutors/apocalypse-reveal-js',
 		// tldreveal's own bundle, React and tldraw included; pinned to a version
 		tldreveal: {

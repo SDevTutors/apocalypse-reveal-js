@@ -1,3 +1,4 @@
+/*! ARJ, Apocalypse Reveal-js | (c) 2026 Mark Crowe | MIT licence, see LICENSE | https://github.com/SDevTutors/apocalypse-reveal-js */
 /*********************************************************
  * Link icons: each website's own icon (favicon) beside links to it, so
  * "IMDb" or "Wikiquote" can be seen at a glance. Load after the slides

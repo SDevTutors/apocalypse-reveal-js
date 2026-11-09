@@ -1,3 +1,4 @@
+/*! ARJ, Apocalypse Reveal-js | (c) 2026 Mark Crowe | MIT licence, see LICENSE | https://github.com/SDevTutors/apocalypse-reveal-js */
 /*********************************************************
  * Drawing button for ARJ: opens and closes tldreveal's drawing
  * mode (tldraw on the slides). deck-start.js loads tldreveal; this adds
