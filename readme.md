@@ -6,7 +6,7 @@
 **ARJ**, Apocalypse Reveal-js: reusable scripts and styles that sit on top of [reveal.js](https://revealjs.com/) 5. Made for the SDev Tutors decks by [Mark Crowe](https://sdevtutors.github.io/mark-crowe/).
 
 - Source: <https://github.com/SDevTutors/apocalypse-reveal-js>
-- Version: 1.8.14 (year.tenth.change: year 1 is 2026, the tenth of the year 0 to 9, then one more for every change in that tenth, from 1)
+- Version: 1.8.15 (year.tenth.change: year 1 is 2026, the tenth of the year 0 to 9, then one more for every change in that tenth, from 1)
 - Demo: [`demo/index.html`](demo/index.html), and the same slides already printed: [`demo/src/pdf/arj-demo.pdf`](demo/src/pdf/arj-demo.pdf)
 - Releases: load a fixed version in a deck (`@v1.8.9`), not the latest. How to version, tag, release on GitHub, publish to npm and serve from jsDelivr: [`docs/publishing.md`](docs/publishing.md)
 
@@ -237,5 +237,5 @@ Better still, print it once and keep the PDF with the deck (the demo's is in `de
 | `python tools/serve.py`           | Serves this repository at <http://localhost:8008/>: the demo is at `/demo/`                        |
 | `python tools/version.py --write` | One more change: the new version in `deck-start.js`, `package.json`, the demo and this readme       |
 | `python tools/build_pdf.py`       | Rebuilds [`demo/src/pdf/arj-demo.pdf`](demo/src/pdf/arj-demo.pdf) from the demo's print version. Needs Node 22+ and Edge or Chrome |
-| `python tools/release.py`         | Tags the version on this computer (`v1.8.9`) and prints the commands to push it, make the GitHub release and publish to npm: [`docs/publishing.md`](docs/publishing.md) |
+| `python tools/release.py`         | Shows what would be released, as the version in `package.json`; `--github` (or `release.cmd`) pushes, tags and makes the GitHub release: [`docs/publishing.md`](docs/publishing.md) |
 | `python tools/commit.py`          | `version.py --write`, then a commit on this computer named by the version alone ("1.8.9"); `--pdf` rebuilds the PDF first. Never pushes: amend or undo it first if you like (`git reset --soft HEAD~1`), then push |

@@ -22,16 +22,27 @@ GitHub Pages and `@master` are the work in progress: every push changes them, fo
 
 ## In short
 
+The version is written in two files, which `tools/version.py` keeps the same: `"version"` in `package.json`, and `version:` in `arj/js/deck-start.js`. The release script reads it from there, so there's nothing to type.
+
 ```bash
-python tools/commit.py --pdf      # one more change: the version, the demo PDF, a local commit named "1.8.10"
-git push                          # when you're happy with the commit(s)
-python tools/release.py           # tags the version (v1.8.10) on this computer and prints the rest:
-git push origin v1.8.10           #   the tag to GitHub: jsDelivr serves @v1.8.10 at once
-gh release create v1.8.10 --title "ARJ 1.8.10" --generate-notes demo/src/pdf/arj-demo.pdf
-npm publish                       #   only once the npm account and licence are set up (4, below)
+python tools/commit.py --pdf        # one more change: the version, the demo PDF, a local commit named "1.8.14"
+python tools/release.py             # shows what it would release, and what's already done; changes nothing
+python tools/release.py --github    # asks, then: git push, the tag v1.8.14, the tag pushed, the GitHub release
+npm publish                         # you: it asks for your two-factor code
 ```
 
-Then point the decks at `@v1.8.10` when you're ready to move them on.
+On Windows, `release.cmd` (double-click it, or run it in CMD) is the same as `python tools/release.py --github`.
+
+`release.py --github` runs, for version 1.8.14:
+
+```bash
+git push origin master
+git tag -a v1.8.14 -m "ARJ 1.8.14"
+git push origin v1.8.14             # jsDelivr serves @v1.8.14 from now on
+gh release create v1.8.14 --title "ARJ 1.8.14" --generate-notes --verify-tag demo/src/pdf/arj-demo.pdf
+```
+
+It checks first that everything is committed, that you're on `master`, that `package.json` and `deck-start.js` agree, and that `gh` is logged in. It asks before anything goes public. If a step fails, fix it and run it again: it skips the steps already done. Then point the decks at `@v1.8.14` when you're ready to move them on.
 
 ---
 
@@ -49,7 +60,7 @@ python tools/commit.py --pdf
 
 ## 2. The tag
 
-The tag is the version with a `v` in front. `tools/release.py` checks there's nothing uncommitted, tags the last commit with the version in `deck-start.js` (on this computer only), and prints the commands for the rest. By hand, the same:
+The tag is the version with a `v` in front. `python tools/release.py --github` makes and pushes it (see In short). By hand, the same:
 
 ```bash
 git tag -a v1.8.7 -m "ARJ 1.8.7"
