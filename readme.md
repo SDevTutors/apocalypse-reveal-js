@@ -21,21 +21,21 @@
 
 Everything a deck needs is in the `arj` folder: JavaScript, CSS and pictures, no documentation.
 
-| File                                                                   | What it does                                                                                                                                     |
-|------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
-| [`arj/js/deck-start.js`](arj/js/deck-start.js)                         | Starts the deck: `startDeck({...})` runs reveal.js, loads tldreveal for drawing, then loads the other scripts in order                           |
-| [`arj/js/deck-markdown.js`](arj/js/deck-markdown.js)                   | For Markdown decks: classes for field lines ("**Who:** ..."), scene lines, shrinking long slides to fit, on screen and in the print version, and continuing a long list on new slides (`class="split"`) |
-| [`arj/js/link-icons.js`](arj/js/link-icons.js)                         | A website's own icon beside each link, and an arrow out of a box after links that open a new tab                                                 |
-| [`arj/js/deck-controls.js`](arj/js/deck-controls.js)                   | The buttons (slide list, home, contents, blackout, all slides, speaker view, full screen, exit), the slide list sidebar, the contents slides and the numbering |
+| File                                                                   | What it does                                                                                                                                                                                             |
+|------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`arj/js/deck-start.js`](arj/js/deck-start.js)                         | Starts the deck: `startDeck({...})` runs reveal.js, loads tldreveal for drawing, then loads the other scripts in order                                                                                   |
+| [`arj/js/deck-markdown.js`](arj/js/deck-markdown.js)                   | For Markdown decks: classes for field lines ("**Who:** ..."), scene lines, shrinking long slides to fit, on screen and in the print version, and continuing a long list on new slides (`class="split"`)  |
+| [`arj/js/link-icons.js`](arj/js/link-icons.js)                         | A website's own icon beside each link, and an arrow out of a box after links that open a new tab                                                                                                         |
+| [`arj/js/deck-controls.js`](arj/js/deck-controls.js)                   | The buttons (slide list, home, contents, blackout, all slides, speaker view, full screen, exit), the slide list sidebar, the contents slides and the numbering                                           |
 | [`arj/js/deck.js`](arj/js/deck.js)                                     | The mouse (wheel, click, right click, middle click), the padlock, footnote jumps, copy buttons on code, email links, the position bar in a stack, the slide at the top of a tall window (`pinTop: true`) |
-| [`arj/js/deck-draw.js`](arj/js/deck-draw.js)                           | The pen button: drawing on the slides with tldreveal                                                                                             |
-| [`arj/js/deck-zoom.js`](arj/js/deck-zoom.js)                           | Click a picture to see it big, the rest dimmed                                                                                                   |
-| [`arj/js/deck-search.js`](arj/js/deck-search.js)                       | The magnifying glass: searches every slide, in place of the browser's Ctrl+F                                                                     |
-| [`arj/css/arj.css`](arj/css/arj.css)                                   | The theme: light slides, navy and gold, 1280 × 720. Code boxes, link icons, and the title slide (`class="title-slide arj-title"`)                |
-| [`arj/css/deck-controls.css`](arj/css/deck-controls.css)               | The buttons, sidebar, contents, padlock, pen, search and exit, and the PDF icon on print and PDF links                                           |
-| [`arj/img/arj-logo.svg`](arj/img/arj-logo.svg)                         | The ARJ logo (`tap-logo.png` is the old one)                                                                                                     |
-| [`arj/img/favicons/`](arj/img/favicons/)                               | ARJ's own two website icons, reveal.js and GitHub, drawn by `arj.css` ("Icons"). A deck keeps any others itself, with its own CSS              |
-| [`arj/img/meme/expanding-brain.jpg`](arj/img/meme/expanding-brain.jpg) | The expanding brain meme, for the theme's `.brain` layout                                                                                        |
+| [`arj/js/deck-draw.js`](arj/js/deck-draw.js)                           | The pen button: drawing on the slides with tldreveal                                                                                                                                                     |
+| [`arj/js/deck-zoom.js`](arj/js/deck-zoom.js)                           | Click a picture to see it big, the rest dimmed                                                                                                                                                           |
+| [`arj/js/deck-search.js`](arj/js/deck-search.js)                       | The magnifying glass: searches every slide, in place of the browser's Ctrl+F                                                                                                                             |
+| [`arj/css/arj.css`](arj/css/arj.css)                                   | The theme: light slides, navy and gold, 1280 × 720. Code boxes, link icons, and the title slide (`class="title-slide arj-title"`)                                                                        |
+| [`arj/css/deck-controls.css`](arj/css/deck-controls.css)               | The buttons, sidebar, contents, padlock, pen, search and exit, and the PDF icon on print and PDF links                                                                                                   |
+| [`arj/img/arj-logo.svg`](arj/img/arj-logo.svg)                         | The ARJ logo (`tap-logo.png` is the old one)                                                                                                                                                             |
+| [`arj/img/favicons/`](arj/img/favicons/)                               | ARJ's own two website icons, reveal.js and GitHub, drawn by `arj.css` ("Icons"). A deck keeps any others itself, with its own CSS                                                                        |
+| [`arj/img/meme/expanding-brain.jpg`](arj/img/meme/expanding-brain.jpg) | The expanding brain meme, for the theme's `.brain` layout                                                                                                                                                |
 
 ---
 
@@ -235,10 +235,10 @@ Better still, print it once and keep the PDF with the deck (the demo's is in `de
 
 ## Tools
 
-| Command                           | What it does                                                                                       |
-|-----------------------------------|----------------------------------------------------------------------------------------------------|
-| `python tools/serve.py`           | Serves this repository at <http://localhost:8008/>: the demo is at `/demo/`                        |
-| `python tools/version.py --write` | One more change: the new version in `deck-start.js`, `package.json`, the demo and this readme       |
-| `python tools/build_pdf.py`       | Rebuilds [`demo/src/pdf/arj-demo.pdf`](demo/src/pdf/arj-demo.pdf) from the demo's print version. Needs Node 22+ and Edge or Chrome |
-| `python tools/release.py`         | Shows what would be released, as the version in `package.json`; `--github` (or `release.cmd`) pushes, tags and makes the GitHub release: [`docs/publishing.md`](docs/publishing.md) |
+| Command                           | What it does                                                                                                                                                                                                       |
+|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `python tools/serve.py`           | Serves this repository at <http://localhost:8008/>: the demo is at `/demo/`                                                                                                                                        |
+| `python tools/version.py --write` | One more change: the new version in `deck-start.js`, `package.json`, the demo and this readme                                                                                                                      |
+| `python tools/build_pdf.py`       | Rebuilds [`demo/src/pdf/arj-demo.pdf`](demo/src/pdf/arj-demo.pdf) from the demo's print version. Needs Node 22+ and Edge or Chrome                                                                                 |
+| `python tools/release.py`         | Shows what would be released, as the version in `package.json`; `--github` (or `release.cmd`) pushes, tags and makes the GitHub release: [`docs/publishing.md`](docs/publishing.md)                                |
 | `python tools/commit.py`          | `version.py --write`, then a commit on this computer named by the version alone ("1.8.9"); `--pdf` rebuilds the PDF first. Never pushes: amend or undo it first if you like (`git reset --soft HEAD~1`), then push |

@@ -83,7 +83,7 @@ GitHub adds the source as a .zip and a .tar.gz to every release. The demo PDF go
 
 ## 4. The npm package
 
-Once, an account on [npmjs.com](https://www.npmjs.com/) and:
+Once, an account on <https://www.npmjs.com> and:
 
 ```bash
 npm login

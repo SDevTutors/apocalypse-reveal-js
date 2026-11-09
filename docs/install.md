@@ -2,11 +2,11 @@
 
 Three ways to use ARJ in a reveal.js deck. Each loads the same files, the `arj/` folder; only the address changes.
 
-| Way | Needs | Best for |
-|---|---|---|
-| [1. jsDelivr](#1-from-jsdelivr-nothing-to-install) | Nothing | Most decks, and anything on GitHub Pages |
-| [2. npm](#2-with-npm-nodejs) | [Node.js](https://nodejs.org/) | Decks in a repository that already uses npm, or working offline |
-| [3. A zip](#3-from-a-zip-download) | Nothing | A deck that must work with no internet, or a copy to change |
+| Way                                                | Needs                          | Best for                                                        |
+|----------------------------------------------------|--------------------------------|-----------------------------------------------------------------|
+| [1. jsDelivr](#1-from-jsdelivr-nothing-to-install) | Nothing                        | Most decks, and anything on GitHub Pages                        |
+| [2. npm](#2-with-npm-nodejs)                       | [Node.js](https://nodejs.org/) | Decks in a repository that already uses npm, or working offline |
+| [3. A zip](#3-from-a-zip-download)                 | Nothing                        | A deck that must work with no internet, or a copy to change     |
 
 Use a fixed version (`1.8.15` here), not the latest: a deck then stays exactly as you tested it until you choose to move it on. The versions are on the [releases page](https://github.com/SDevTutors/apocalypse-reveal-js/releases) and on [npm](https://www.npmjs.com/package/apocalypse-reveal-js).
 
