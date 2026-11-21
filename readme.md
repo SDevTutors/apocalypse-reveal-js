@@ -1,6 +1,12 @@
 
 # Apocalypse Reveal-js (ARJ)
 
+<!-- repository-qr:start -->
+<a href="https://tinyurl.com/37bzb56t" target="_blank" rel="noopener noreferrer"><img src="docs/images/readme/repository-qr.png" alt="QR code for this repository" width="256" height="256" /></a>
+<br />
+<a href="https://tinyurl.com/37bzb56t" target="_blank" rel="noopener noreferrer">https://tinyurl.com/37bzb56t</a>
+<!-- repository-qr:end -->
+
 <img src="arj/img/arj-logo.svg" alt="ARJ logo" height="56" />
 
 **ARJ**, Apocalypse Reveal-js: reusable scripts and styles that sit on top of [reveal.js](https://revealjs.com/) 5. Made for the SDev Tutors decks by [Mark Crowe](https://sdevtutors.github.io/mark-crowe/).
